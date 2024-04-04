@@ -1,5 +1,5 @@
 'use client'
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
     FpjsProvider
   } from '@fingerprintjs/fingerprintjs-pro-react';
@@ -12,6 +12,10 @@ const App = () => {
     const result = await fp.get();
     setFingerprint(result.visitorId);
   };
+
+  useEffect(() => {
+    generateFingerprint();
+  }, []);
 
   return (
     <div>
