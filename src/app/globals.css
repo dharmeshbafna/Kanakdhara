@@ -3,3 +3,9 @@
 @tailwind utilities;
 
 .t1 { background-color: #71074F; }
+
+.bg1 {
+    background-image: url('/bg1.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+}

@@ -1,8 +1,9 @@
-import { Inter } from "next/font/google";
+import { Inter, Playfair } from "next/font/google";
 import "./globals.css";
 import { Navbar, Footer } from "@/components/other";
 
 const inter = Inter({ subsets: ["latin"] });
+const playfair = Playfair({ subsets: ["latin"] });
 
 export const metadata = {
   title: "Kandhara Jewellers",
@@ -14,7 +15,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className="">
+      <body className={``}>
         <Navbar />
         {children}
         <Footer />
