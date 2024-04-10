@@ -1,5 +1,10 @@
 import Image from "next/image";
 import App from "@/components/test";
+import { 
+  Banner, 
+  First,
+  Products
+} from "@/components/home";
 
 export const metadata = {
   title: "Kanakdhara Jewellers",
@@ -10,9 +15,10 @@ export const metadata = {
 
 export default function Home() {
   return (
-    <div className="t1 text-white h-[100vh] w-full flex justify-center items-center m-auto">
-      {/* <App /> */}
-      Banner
+    <div>
+      <Banner />
+      <First />
+      <Products />
     </div>
   );
 }

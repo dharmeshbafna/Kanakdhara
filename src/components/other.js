@@ -35,7 +35,7 @@ export const Navbar = () => {
                     </a>
                 </div>
                 <div className="flex justify-center m-auto items-center h-full">
-                    <a href="/" className="text-yellow-400">
+                    <a href="/contact" className="text-yellow-400">
                         Contact
                     </a>
                 </div>
@@ -98,6 +98,16 @@ export const Footer = () => {
                 <div className="text-gray-500 border-t border-gray-700 lg:w-[65%] pt-3">
                     © Copyright 2024 Kanakdhara Jewellers. All Rights Reserved.
                 </div>
+            </div>
+        </div>
+    )
+}
+
+export const BreadCrumb = () => {
+    return (
+        <div className="bg-[#71074F] px-10 h-[40vh] flex items-center my-auto">
+            <div className="text-white font-semibold text-4xl">
+                Contact Us
             </div>
         </div>
     )
