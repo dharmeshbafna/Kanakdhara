@@ -25,7 +25,7 @@ export const Navbar = () => {
             <div className="flex justify-center mx-auto w-[40%]">
                 <Image
                     src={Logo}
-                    className="h-24 w-auto drop-shadow-2xl"
+                    className="h-24 w-auto drop-shadow-lg"
                 />
             </div>
             <div className="w-[30%] grid grid-cols-2 items-center my-auto text-lg">
@@ -105,9 +105,15 @@ export const Footer = () => {
 
 export const BreadCrumb = () => {
     return (
-        <div className="bg-[#71074F] px-10 h-[40vh] flex items-center my-auto">
-            <div className="text-white font-semibold text-4xl">
-                Contact Us
+        <div className="bg-[#71074F] px-10 h-[60vh] flex items-center my-auto">
+            <div className="flex justify-center items-center h-full m-auto pt-16">
+                <div className="h-fit w-fit relative">
+                    <div className="drop-shadow-lg absolute top-0 -left-2 border-t-2 border-l-2 border-yellow-500 w-[40%] h-[60%]"></div>
+                    <div className="drop-shadow-lg absolute -bottom-1 -right-2 border-b-2 border-r-2 border-yellow-500 w-[40%] h-[60%]"></div>
+                    <div className="text-white text-4xl p-2 drop-shadow-lg">
+                        Contact Us
+                    </div>
+                </div>
             </div>
         </div>
     )

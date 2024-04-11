@@ -11,8 +11,8 @@ export const metadata = {
 export default function CONTACT () {
     return (
         <div>
-            {/* <ContactComp /> */}
             <BreadCrumb />
+            <ContactComp />
         </div>
     )
 }
