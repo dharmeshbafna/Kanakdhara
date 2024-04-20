@@ -1,9 +1,8 @@
-import { Inter, Playfair } from "next/font/google";
+import { Inter } from "next/font/google";
 import "./globals.css";
 import { Navbar, Footer } from "@/components/other";
 
 const inter = Inter({ subsets: ["latin"] });
-const playfair = Playfair({ subsets: ["latin"] });
 
 export const metadata = {
   title: "Kandhara Jewellers",
