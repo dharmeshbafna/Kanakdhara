@@ -9,7 +9,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
 import Slider1 from "../../public/slider1.jpg";
-import Slider2 from "../../public/slider2.jpg";
+import Slider2 from "../../public/slider2.jpeg";
 
 import NameLogo from "../../public/namelogo.png";
 
