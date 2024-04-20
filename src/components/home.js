@@ -47,11 +47,13 @@ export const Banner = () => {
             </div>
 
             {/* Line below logo */}
-            <div className="absolute left-20 top-[30%]">
+            <div className="absolute left-20 top-[22%]">
+                <div className="h-12 border-l border-yellow-400 ml-4"></div>
                 <Image
                     src={NameLogo}
-                    className="w-6 h-auto"
+                    className="w-6 h-auto my-2"
                 />
+                <div className="h-12 border-l border-yellow-400 ml-4"></div>
             </div>
 
             {/* Slider */}
