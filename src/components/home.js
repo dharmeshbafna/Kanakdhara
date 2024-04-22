@@ -10,10 +10,13 @@ import "slick-carousel/slick/slick-theme.css";
 
 import Slider1 from "../../public/slider1.jpeg";
 import Slider2 from "../../public/slider2.jpeg";
+import Necklace from "../../public/necklace.jpeg";
+import Bangles from "../../public/bangles.jpeg";
 
 import NameLogo from "../../public/namelogo.png";
 
 const simonetta = Simonetta({ weight: '400', subsets: ["latin"] });
+const simonetta2 = Simonetta({ weight: '900', subsets: ["latin"] });
 
 export const Banner = () => {
 
@@ -76,6 +79,115 @@ export const Banner = () => {
                         />
                     </div>
                 </Slider>
+            </div>
+        </div>
+    )
+}
+
+export const Products = () => {
+    return (
+        <div className="py-14 lg:px-16 min-h-[100vh]">
+            <div className="w-full">
+                <div className="text-base flex justify-center mx-auto text-center">
+                    Basic and Exquisite
+                </div>
+                <div className={`flex justify-center mx-auto text-[3.25rem] ${simonetta.className}`}>
+                    Our Products
+                </div>
+            </div>
+        </div>
+    )
+}
+
+export const About = () => {
+    return (
+        <div className="py-14 lg:px-16 bg-gray-100 min-h-[100vh] items-center my-auto flex">
+            <div className="grid grid-cols-2 gap-2">
+
+                <div className="relative flex justify-center items-center m-auto w-full">
+                    <Image
+                        src={Necklace}
+                        className="h-96 w-auto rounded-t-full shadow-lg"
+                    />
+                    <div className="absolute -bottom-3 right-10">
+                        <div className="relative h-48 w-48 rounded-full overflow-hidden shadow-lg">
+                            <Image
+                                src={Bangles}
+                                objectFit="cover"
+                                layout="fill"
+                                className=""
+                            />
+                        </div>
+                    </div>
+                </div>
+
+                <div className="flex items-center my-auto p-3">
+                    <div>
+                        <div className="text-base">
+                            Basic and Exquisite
+                        </div>
+                        <div className={`${simonetta.className} text-[50px]`}>
+                            About Us
+                        </div>
+                        <div className="">
+                            What you need, wear how you need, celebrate with when you need, and keep for eternity. It's for great minutes, minor achievements, and in the middle between.
+                            <br /><br />
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                        </div>
+                        <div className="w-fit mt-7">
+                            <a href="/about" className="focus:outline-none px-5 py-2 border border-black hover:bg-black hover:text-white duration-300 hover:shadow-lg">
+                                Read More
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    )
+}
+
+export const Desc = () => {
+    return (
+        <div className="py-14 lg:px-16 bg-[#71074F] min-h-[100vh] items-center my-auto flex text-white">
+            <div className="grid grid-cols-2 gap-2">
+
+                <div className="flex items-center my-auto">
+                    <div>
+                        <div className="text-base">
+                            Basic and Exquisite
+                        </div>
+                        <div className={`${simonetta.className} text-[50px]`}>
+                            Fine Jewellery
+                        </div>
+                        <div className="">
+                            What you need, wear how you need, celebrate with when you need, and keep for eternity. It's for great minutes, minor achievements, and in the middle between.
+                            <br /><br />
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                        </div>
+                        <div className="w-fit mt-7">
+                            <a href="#" className="focus:outline-none px-5 py-2 border border-white hover:bg-white hover:text-[#71074F] duration-300 hover:shadow-lg">
+                                Read More
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div className="relative flex justify-center items-center m-auto w-full">
+                    <Image
+                        src={Necklace}
+                        className="h-96 w-auto rounded-t-full shadow-lg"
+                    />
+                    <div className="absolute -bottom-3 right-10">
+                        <div className="relative h-48 w-48 rounded-full overflow-hidden shadow-lg">
+                            <Image
+                                src={Bangles}
+                                objectFit="cover"
+                                layout="fill"
+                                className=""
+                            />
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     )

@@ -1,7 +1,10 @@
 import Image from "next/image";
 import App from "@/components/test";
 import { 
-  Banner
+  Banner,
+  Products,
+  About,
+  Desc
 } from "@/components/home";
 
 export const metadata = {
@@ -15,6 +18,9 @@ export default function Home() {
   return (
     <div>
       <Banner />
+      <Products />
+      <About />
+      <Desc />
     </div>
   );
 }
