@@ -13,11 +13,18 @@ import {
 import {
     CreateCategory,
     GetCategories,
-    CreateProduct
+    CreateProduct,
+    EditCategory,
+    EditProduct,
+    getItems,
+    DeleteItem,
+    DeleteCategory
 } from "@/api/product";
 import { useEffect, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { IoIosSearch, IoMdExit } from "react-icons/io";
+import { IoArrowBackOutline } from "react-icons/io5";
+import Image from "next/image";
 
 export const Loader = () => {
     return (
@@ -186,13 +193,26 @@ export const LoginComp = () => {
 export const Dashboard = () => {
 
     const [admin, setAdmin] = useState('');
+    const [items, setItems] = useState([]);
     const [profilebox, setProfilebox] = useState(false);
     const [type, setType] = useState('');
+    const [activecat, setActivecat] = useState({
+        name: '',
+        id: ''
+    });
+    const [deletecat, setDeletecat] = useState('');
     const [name, setName] = useState('');
     const [data, setData] = useState([]);
+    const [imgpopup, setImgpopup] = useState('');
     const [searchcat, setSearchcat] = useState('');
+    const [deleteitem, setDeleteitem] = useState('');
+    const [searchitem, setSearchitem] = useState('');
     const [modal, setModal] = useState(false);
     const [cc, setCc] = useState('');
+    const [editc, setEditc] = useState({
+        id: '',
+        name: '',
+    });
     const [msg, setMsg] = useState({
         load: false,
         error: '',
@@ -202,6 +222,12 @@ export const Dashboard = () => {
         cid: '',
         title: '',
         img: null
+    });
+    const [editItem, setEditItem] = useState({
+        id: '',
+        title: '',
+        oldimg: '',
+        newimg: null
     });
     const router = useRouter();
 
@@ -215,6 +241,7 @@ export const Dashboard = () => {
         if (res.success) {
             setMsg({ load: false, error: '', success: res.success });
             setCc('');
+            setItems([]);
             setModal(false);
             handleGetCategories();
             setTimeout(() => {
@@ -262,6 +289,9 @@ export const Dashboard = () => {
             });
             setModal(false);
             handleGetCategories();
+            if (activecat.id) {
+                handleGetItems();
+            }
             setTimeout(() => {
                 setMsg({ load: false, error: '', success: '' });
             }, 2000);
@@ -272,6 +302,135 @@ export const Dashboard = () => {
                 title: '',
                 img: null
             });
+            setModal(false);
+            setTimeout(() => {
+                setMsg({ load: false, error: '', success: '' });
+            }, 2500);
+        }
+    };
+
+    // ========= Edit Category ============
+    const handleEditCategory = async (e) => {
+        e.preventDefault();
+
+        setMsg({ load: true, error: '', success: '' });
+
+        const res = await EditCategory(editc.id, editc.name);
+
+        if (res.success) {
+            setMsg({ load: false, error: '', success: res.success });
+            setEditc({ id: '', name: '' });
+            setModal(false);
+            handleGetCategories();
+            setTimeout(() => {
+                setMsg({ load: false, error: '', success: '' });
+            }, 2000);
+        } else {
+            setMsg({ load: false, error: `${res.error || 'Internal Server Error..'}`, success: '' });
+            setEditc({ id: '', name: '' });
+            setModal(false);
+            setTimeout(() => {
+                setMsg({ load: false, error: '', success: '' });
+            }, 2500);
+        }
+    };
+
+    // ========= Edit Item ===========
+    const handleEditProduct = async (e) => {
+        e.preventDefault();
+
+        setMsg({ load: true, error: '', success: '' });
+
+        const formdata = new FormData();
+        formdata.append('cid', activecat.id);
+        formdata.append('id', editItem.id);
+        formdata.append('title', editItem.title);
+        formdata.append('img', editItem.newimg);
+
+        const res = await EditProduct(formdata);
+
+        if (res.success) {
+            setMsg({ load: false, error: '', success: res.success });
+            setEditItem({
+                id: '',
+                title: '',
+                newimg: null
+            });
+            setModal(false);
+            handleGetItems();
+            handleGetCategories();
+            setTimeout(() => {
+                setMsg({ load: false, error: '', success: '' });
+            }, 2000);
+        } else {
+            setMsg({ load: false, error: `${res.error || 'Internal Server Error..'}`, success: '' });
+            setEditItem({
+                id: '',
+                title: '',
+                newimg: null
+            });
+            setModal(false);
+            setTimeout(() => {
+                setMsg({ load: false, error: '', success: '' });
+            }, 2500);
+        }
+    };
+
+    // ======== Get Items ==========
+    const handleGetItems = async () => {
+
+        const res = await getItems(activecat.id);
+
+        if (res.success) {
+            setItems(res.success);
+        }
+    };
+
+    // ======= Delete Item =========
+    const handledeleteitem = async () => {
+
+        setMsg({ load: true, error: '', success: '' });
+
+        const res = await DeleteItem(activecat.id, deleteitem);
+
+        if (res.success) {
+            setMsg({ load: false, error: '', success: res.success });
+            setDeleteitem('');
+            setModal(false);
+            handleGetItems();
+            handleGetCategories();
+            setTimeout(() => {
+                setMsg({ load: false, error: '', success: '' });
+            }, 2000);
+        } else {
+            setMsg({ load: false, error: `${res.error || 'Internal Server Error..'}`, success: '' });
+            setDeleteitem('');
+            setModal(false);
+            setTimeout(() => {
+                setMsg({ load: false, error: '', success: '' });
+            }, 2500);
+        }
+    };
+
+    // ======= Delete Category =========
+    const handledeletecategory = async () => {
+
+        setMsg({ load: true, error: '', success: '' });
+
+        const res = await DeleteCategory(deletecat);
+
+        if (res.success) {
+            setMsg({ load: false, error: '', success: res.success });
+            setDeletecat('');
+            setModal(false);
+            handleGetItems();
+            handleGetCategories();
+            setTimeout(() => {
+                setMsg({ load: false, error: '', success: '' });
+            }, 2000);
+        } else {
+            setMsg({ load: false, error: `${res.error || 'Internal Server Error..'}`, success: '' });
+            setDeletecat('');
             setModal(false);
             setTimeout(() => {
                 setMsg({ load: false, error: '', success: '' });
@@ -298,7 +457,7 @@ export const Dashboard = () => {
     }, []);
 
     return (
-        <div className="min-h-[100vh] lg:px-16 lg:pt-36">
+        <div className="min-h-[100vh] lg:px-16 lg:pt-32">
 
             {/* Header */}
             <div className="flex items-center my-auto pt-8 w-full">
@@ -307,9 +466,9 @@ export const Dashboard = () => {
                     <input
                         className="focus:outline-none"
                         type="name"
-                        placeholder="Category"
-                        value={searchcat}
-                        onChange={(e) => setSearchcat(e.target.value)}
+                        placeholder={`${items.length != 0 ? 'Item Name' : 'Category'}`}
+                        value={items.length != 0 ? searchitem : searchcat}
+                        onChange={(e) => items.length != 0 ? setSearchitem(e.target.value) : setSearchcat(e.target.value)}
                     />
                 </div>
                 <button onClick={() => {
@@ -341,43 +500,137 @@ export const Dashboard = () => {
                 </div>
             </div>
 
-            {/* List Categories */}
-            <div className="mt-6">
-                <table className="w-full">
-                    <thead>
-                        <tr className="font-semibold text-lg text-gray-700">
-                            <th>No.</th>
-                            <th>Category</th>
-                            <th>No. of Items</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {data
-                            .filter((i) => searchcat ? i.category.toLowerCase().includes(searchcat.toLowerCase()) : i)
-                            .map((i, index) => {
-                                return (
-                                    <tr key={index} className="border-b border-gray-200">
-                                        <td className="w-1/4 text-center py-4 px-2">{index + 1}.</td>
-                                        <td className="w-1/4 text-center py-4 px-2">{i.category}</td>
-                                        <td className="w-1/4 text-center py-4 px-2">{i.products.length}</td>
-                                        <td className="text-nowrap flex items-center m-auto justify-center py-4 px-2">
-                                            <button className="text-nowrap px-4 py-2 border border-black hover:bg-black hover:text-white duration-300">
-                                                View Items
-                                            </button>
-                                            <button className="mx-3 text-nowrap px-4 py-2 border border-black hover:bg-black hover:text-white duration-300">
-                                                Edit
-                                            </button>
-                                            <button className="text-nowrap px-4 py-2 border border-black hover:bg-black hover:text-white duration-300">
-                                                Delete
-                                            </button>
-                                        </td>
-                                    </tr>
-                                )
-                            })}
-                    </tbody>
-                </table>
-            </div>
+            {items.length != 0 ?
+
+                // ========= Items List ============
+                <div className="mt-6">
+                    <div className="mb-5 grid grid-cols-2">
+                        <div className="font-semibold text-xl">
+                            Category: {activecat.name}
+                        </div>
+                        <div className="flex justify-end">
+                            <button onClick={() => setItems([])} className="flex items-center y-auto text-nowrap px-4 py-2 border border-black hover:bg-black hover:text-white duration-300">
+                                <IoArrowBackOutline className="mr-2" />
+                                Back
+                            </button>
+                        </div>
+                    </div>
+                    <table className="w-full">
+                        <thead>
+                            <tr className="font-semibold text-lg text-gray-700">
+                                <th>No.</th>
+                                <th>Title</th>
+                                <th>Image</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {items
+                                .filter((i) => searchitem ? i.title.toLowerCase().includes(searchitem.toLowerCase()) : i)
+                                .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+                                .map((i, index) => {
+                                    return (
+                                        <tr key={index} className="border-b border-gray-200">
+                                            <td className="w-1/4 text-center py-4 px-2">{index + 1}.</td>
+                                            <td className="w-1/4 text-center py-4 px-2">{i.title}</td>
+                                            <td className="w-1/4 text-center py-4 px-2">
+                                                <button
+                                                    onClick={() => {
+                                                        setImgpopup(i.imglink);
+                                                        setModal(true);
+                                                        setType('img-popup');
+                                                    }}>
+                                                    <Image
+                                                        src={i.imglink}
+                                                        width={50}
+                                                        height={50}
+                                                        priority={true}
+                                                        className="flex justify-center items-center m-auto"
+                                                    />
+                                                </button>
+                                            </td>
+                                            <td className="text-nowrap flex items-center m-auto justify-center py-4 px-2">
+                                                <button
+                                                    onClick={() => {
+                                                        setModal(true);
+                                                        setType('edit-item');
+                                                        setEditItem({ id: i._id, title: i.title, oldimg: i.imglink });
+                                                    }}
+                                                    className="mx-3 text-nowrap px-4 py-2 border border-black hover:bg-black hover:text-white duration-300">
+                                                    Edit
+                                                </button>
+                                                <button
+                                                    onClick={() => {
+                                                        setModal(true);
+                                                        setType('delete-item');
+                                                        setDeleteitem(i._id);
+                                                    }}
+                                                    className="text-nowrap px-4 py-2 border border-black hover:bg-black hover:text-white duration-300">
+                                                    Delete
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    )
+                                })}
+                        </tbody>
+                    </table>
+                </div>
+                :
+                // ========== Categories List ============
+                <div className="mt-6">
+                    <table className="w-full">
+                        <thead>
+                            <tr className="font-semibold text-lg text-gray-700">
+                                <th>No.</th>
+                                <th>Category</th>
+                                <th>No. of Items</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {data
+                                .filter((i) => searchcat ? i.category.toLowerCase().includes(searchcat.toLowerCase()) : i)
+                                .map((i, index) => {
+                                    return (
+                                        <tr key={index} className="border-b border-gray-200">
+                                            <td className="w-1/4 text-center py-4 px-2">{index + 1}.</td>
+                                            <td className="w-1/4 text-center py-4 px-2">{i.category}</td>
+                                            <td className="w-1/4 text-center py-4 px-2">{i.products.length}</td>
+                                            <td className="text-nowrap flex items-center m-auto justify-center py-4 px-2">
+                                                <button
+                                                    onClick={() => {
+                                                        setItems(i.products);
+                                                        setActivecat({ name: i.category, id: i._id })
+                                                    }}
+                                                    className="text-nowrap px-4 py-2 border border-black hover:bg-black hover:text-white duration-300">
+                                                    View Items
+                                                </button>
+                                                <button
+                                                    onClick={() => {
+                                                        setModal(true);
+                                                        setType('edit-category');
+                                                        setEditc({ id: i._id, name: i.category });
+                                                    }}
+                                                    className="mx-3 text-nowrap px-4 py-2 border border-black hover:bg-black hover:text-white duration-300">
+                                                    Edit
+                                                </button>
+                                                <button
+                                                    onClick={() => {
+                                                        setModal(true);
+                                                        setType('delete-category');
+                                                        setDeletecat(i._id);
+                                                    }}
+                                                    className="text-nowrap px-4 py-2 border border-black hover:bg-black hover:text-white duration-300">
+                                                    Delete
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    )
+                                })}
+                        </tbody>
+                    </table>
+                </div>
+            }
 
             {/* Modal */}
             <Modal
@@ -441,12 +694,15 @@ export const Dashboard = () => {
                                             accept="image/*"
                                             onChange={(e) => {
                                                 if (e.target.files[0].size > 1048576) {
-                                                    setMsg({load: false, success: '', error:"The file is too large (1MB max)."});
+                                                    setMsg({ load: false, success: '', error: "The file is too large (1MB max)." });
                                                     setTimeout(() => {
-                                                        setMsg({load: false, success: '', error:''});
-                                                    }, 2000);
+                                                        setMsg({ load: false, success: '', error: '' });
+                                                    }, 2500);
+                                                    setAdditem({ cid: '', title: '', img: null });
+                                                    setType('');
+                                                    setModal(false);
                                                     return;
-                                                } else {
+                                                } else if (e.target.files[0].size <= 1048576){
                                                     setAdditem({ ...additem, img: e.target.files[0] });
                                                 }
                                             }}
@@ -457,10 +713,116 @@ export const Dashboard = () => {
                                         Create
                                     </button>
                                 </form>
-                            </div> : ''}
+                            </div> :
+                            type == 'edit-category' ?
+                                <div className="">
+                                    <div className="text-center font-semibold text-xl mb-3">
+                                        Edit Category
+                                    </div>
+                                    <form onSubmit={handleEditCategory}>
+                                        <input
+                                            type="name"
+                                            className="my-3 px-3 py-2 border border-gray-500 focus:outline-none w-full focus:border focus:border-[#71074F] mb-3"
+                                            placeholder="Category Name"
+                                            value={editc.name}
+                                            onChange={(e) => setEditc({ ...editc, name: e.target.value })}
+                                            required
+                                        />
+                                        <button type="submit" className="flex justify-center items-center m-auto focus:outline-none px-4 py-2 border border-black hover:bg-black hover:text-white duration-300 hover:shadow-lg">
+                                            Update
+                                        </button>
+                                    </form>
+                                </div> :
+                                type == 'img-popup' ?
+                                    <div className="relative h-60 w-60">
+                                        <Image
+                                            src={imgpopup}
+                                            priority={true}
+                                            objectFit="cover"
+                                            layout="fill"
+                                            className="flex justify-center items-center m-auto"
+                                        />
+                                    </div> :
+                                    type == 'edit-item' ?
+                                        <div className="">
+                                            <div className="text-center font-semibold text-xl mb-3">
+                                                Edit Item
+                                            </div>
+                                            <form onSubmit={handleEditProduct}>
+                                                <input
+                                                    type="name"
+                                                    className="my-3 px-3 py-2 border border-gray-500 focus:outline-none w-full focus:border focus:border-[#71074F]"
+                                                    placeholder="Item Title"
+                                                    value={editItem.title}
+                                                    onChange={(e) => setEditItem({ ...editItem, title: e.target.value })}
+                                                    required
+                                                />
+                                                <div className="py-3 flex">
+                                                    Current Image:
+                                                    <Image
+                                                        src={editItem.oldimg}
+                                                        width={50}
+                                                        height={50}
+                                                        priority={true}
+                                                        className="ml-2"
+                                                    />
+                                                </div>
+                                                <div className="flex items-center my-auto pb-5">
+                                                    <label htmlFor="img" className="mr-2">Choose New Image (max: 1 mb): </label>
+                                                    <input
+                                                        type="file"
+                                                        accept="image/*"
+                                                        onChange={(e) => {
+                                                            if (e.target.files[0].size > 1048576) {
+                                                                setMsg({ load: false, success: '', error: "The file is too large (1MB max)." });
+                                                                setTimeout(() => {
+                                                                    setMsg({ load: false, success: '', error: '' });
+                                                                }, 2500);
+                                                                setModal(false);
+                                                                setType('');
+                                                                return;
+                                                            } else {
+                                                                setEditItem({ ...editItem, newimg: e.target.files[0] });
+                                                            }
+                                                        }}
+                                                    />
+                                                </div>
+                                                <button type="submit" className="flex justify-center items-center m-auto focus:outline-none px-4 py-2 border border-black hover:bg-black hover:text-white duration-300 hover:shadow-lg">
+                                                    Update
+                                                </button>
+                                            </form>
+                                        </div> :
+                                        type == 'delete-item' ?
+                                            <div className="">
+                                                <div className="text-center">
+                                                    Are you sure you want to delete this item?
+                                                </div>
+                                                <div className="mt-3 flex justify-center items-center m-auto">
+                                                    <button onClick={() => handledeleteitem()} className="text-nowrap px-4 py-2 border border-black hover:bg-black hover:text-white duration-300">
+                                                        Yes
+                                                    </button>
+                                                    <button onClick={() => setModal(false)} className="ml-2 text-nowrap px-4 py-2 border border-black hover:bg-black hover:text-white duration-300">
+                                                        No
+                                                    </button>
+                                                </div>
+                                            </div> :
+                                            type == 'delete-category' ?
+                                                <div>
+                                                    <div className="text-center">
+                                                        Are you sure you want to delete this category? Also all items will be deleted of this category.
+                                                    </div>
+                                                    <div className="mt-3 flex justify-center items-center m-auto">
+                                                        <button onClick={() => handledeletecategory()} className="text-nowrap px-4 py-2 border border-black hover:bg-black hover:text-white duration-300">
+                                                            Yes
+                                                        </button>
+                                                        <button onClick={() => setModal(false)} className="ml-2 text-nowrap px-4 py-2 border border-black hover:bg-black hover:text-white duration-300">
+                                                            No
+                                                        </button>
+                                                    </div>
+                                                </div> : ''}
                 </Box>
             </Modal>
             <MessageShow load={msg.load} error={msg.error} success={msg.success} />
-        </div>
+        </div >
     )
 }
