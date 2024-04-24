@@ -734,13 +734,13 @@ export const Dashboard = () => {
                                     </form>
                                 </div> :
                                 type == 'img-popup' ?
-                                    <div className="relative h-60 w-60">
+                                    <div className="">
                                         <Image
                                             src={imgpopup}
                                             priority={true}
-                                            objectFit="cover"
-                                            layout="fill"
-                                            className="flex justify-center items-center m-auto"
+                                            width={300}
+                                            height={300}
+                                            className="flex justify-center items-center m-auto w-full h-auto md:max-h-96 md:w-auto"
                                         />
                                     </div> :
                                     type == 'edit-item' ?

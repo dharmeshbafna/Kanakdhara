@@ -1,7 +1,7 @@
 'use client'
 
 import Image from "next/image";
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 import { Simonetta } from "next/font/google"
 
 import Slider from "react-slick";
@@ -12,8 +12,12 @@ import Slider1 from "../../public/slider1.jpeg";
 import Slider2 from "../../public/slider2.jpeg";
 import Necklace from "../../public/necklace.jpeg";
 import Bangles from "../../public/bangles.jpeg";
-
 import NameLogo from "../../public/namelogo.png";
+
+import Box from '@mui/material/Box';
+import Modal from '@mui/material/Modal';
+
+import { GetCategories } from "@/api/product";
 
 const simonetta = Simonetta({ weight: '400', subsets: ["latin"] });
 const simonetta2 = Simonetta({ weight: '900', subsets: ["latin"] });
@@ -40,7 +44,7 @@ export const Banner = () => {
             </div>
 
             {/* Text between slider & bg */}
-            <div className="absolute top-[40%] right-20 z-40 lg:w-[30%]">
+            <div className="absolute top-[40%] right-20 z-30 lg:w-[30%]">
                 <div className={`${simonetta.className} text-white text-[55px]`}>
                     Looks Good
                 </div>
@@ -85,8 +89,29 @@ export const Banner = () => {
 }
 
 export const Products = () => {
+
+    const [data, setData] = useState([]);
+    const [activeCat, setActiveCat] = useState('');
+    const [modal, setModal] = useState(false);
+    const [imgpopup, setImgPopup] = useState('');
+
+    const getallcategories = async () => {
+
+        const res = await GetCategories();
+
+        if (res.success) {
+            setData(res.success);
+            setActiveCat(res.success[0]);
+        }
+
+    };
+
+    useEffect(() => {
+        getallcategories();
+    }, []);
+
     return (
-        <div className="py-14 lg:px-16 min-h-[100vh]">
+        <div className="py-14 lg:px-16 min-h-[100vh] flex items-center my-auto">
             <div className="w-full">
                 <div className="text-base flex justify-center mx-auto text-center">
                     Basic and Exquisite
@@ -94,7 +119,75 @@ export const Products = () => {
                 <div className={`flex justify-center mx-auto text-[3.25rem] ${simonetta.className}`}>
                     Our Products
                 </div>
+
+                <div className="flex items-center justify-center m-auto py-4 w-full">
+                    {data && data.map((i) => {
+                        return (
+                            <div>
+                                <div onClick={() => setActiveCat(i)} className="mx-2 w-fit hover:scale-[110%] duration-300 focus:outline-none">
+                                    <button className={`${i._id == activeCat._id ? 'font-semibold' : ''}`}>
+                                        {i.category}
+                                    </button>
+                                    {activeCat._id == i._id ?
+                                        <div className="h-1 w-1/2 bg-black flex justify-center mx-auto rounded-lg">
+                                        </div>
+                                        : ''}
+                                </div>
+                            </div>
+                        )
+                    })}
+                </div>
+
+                <div className="flex items-center justify-center m-auto w-full py-3">
+                    <div className="grid grid-cols-4 gap-6">
+                        {activeCat.products && activeCat.products
+                            .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+                            .slice(0, 4)
+                            .map((i) => {
+                                return (
+                                    <button
+                                    onClick={() => {
+                                        setModal(true);
+                                        setImgPopup(i.imglink);
+                                    }} 
+                                    className="shadow-lg relative h-56 w-56 hover:scale-[110%] duration-300">
+                                        <Image
+                                            src={i.imglink}
+                                            objectFit="cover"
+                                            layout="fill"
+                                            objectPosition="center"
+                                            className="bg-white"
+                                        />
+                                    </button>
+                                )
+                            })}
+                    </div>
+                </div>
+
+                <div className="flex justify-center mt-3">
+                    <a href={`/gold-jewellery/${activeCat ? activeCat.category.toLowerCase().replace(/ /g, '-') : ''}`} className="focus:outline-none px-5 py-2 border border-black hover:bg-black hover:text-white duration-300 hover:shadow-lg">
+                        View All
+                    </a>
+                </div>
             </div>
+            <Modal
+                open={modal}
+                onClose={() => setModal(false)}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
+            >
+                <Box className="absolute top-1/2 left-1/2 bg-white shadow-lg focus:outline-none -translate-x-1/2 -translate-y-1/2 w-[90%] md:w-[65%] lg:w-auto md:max-w-[80%]">
+                    <div className="">
+                        <Image
+                            src={imgpopup}
+                            priority={true}
+                            width={300}
+                            height={300}
+                            className="flex justify-center items-center m-auto w-full h-auto md:max-h-[500px] md:w-auto"
+                        />
+                    </div>
+                </Box>
+            </Modal>
         </div>
     )
 }
@@ -171,7 +264,7 @@ export const Desc = () => {
                         </div>
                     </div>
                 </div>
-                
+
                 <div className="relative flex justify-center items-center m-auto w-full">
                     <Image
                         src={Necklace}
