@@ -4,7 +4,8 @@ import {
   Banner,
   Products,
   About,
-  Desc
+  Desc,
+  CTA
 } from "@/components/home";
 
 export const metadata = {
@@ -21,6 +22,7 @@ export default function Home() {
       <Products />
       <About />
       <Desc />
+      <CTA />
     </div>
   );
 }

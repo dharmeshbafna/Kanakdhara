@@ -9,11 +9,29 @@ import Image from "next/image"
 import Icon from "../../public/icon.png"
 import FooterLogo from "../../public/footer_logo.png";
 
-import { FaInstagram, FaFacebookF, FaCaretDown } from "react-icons/fa";
+import { FaInstagram, FaFacebookF, FaCaretDown, FaYoutube } from "react-icons/fa";
 import { FaXTwitter, FaLocationDot } from "react-icons/fa6";
 import { IoIosCall, IoIosMail, IoLogoWhatsapp } from "react-icons/io";
 
+import { Rings, RevolvingDot } from "react-loader-spinner"
+
 import { GetCategories } from "@/api/product"
+
+export const LoaderComp = () => {
+    return (
+        <div className="h-[100vh] flex justify-center items-center m-auto">
+            <Rings
+                visible={true}
+                height="80"
+                width="80"
+                color="#DAA520"
+                ariaLabel="rings-loading"
+                wrapperStyle={{}}
+                wrapperClass=""
+            />
+        </div>
+    )
+}
 
 export const Navbar = () => {
 
@@ -120,13 +138,13 @@ export const Navbar = () => {
 
                         {/* Desktop Social Icons */}
                         <div className="lg:w-[35%] flex justify-end items-center m-auto">
-                            <a href="#" className="mx-3 w-fit text-white hover:scale-[120%] duration-300">
-                                <FaXTwitter className="" />
-                            </a>
-                            <a href="#" className="mx-3 w-fit text-white hover:scale-[120%] duration-300">
+                            <a href="https://www.facebook.com/kanakdharajewellers?mibextid=LQQJ4d" target="_blank" className="mx-3 w-fit text-white hover:scale-[120%] duration-300">
                                 <FaFacebookF className="" />
                             </a>
-                            <a href="#" className="mx-3 w-fit text-white hover:scale-[120%] duration-300">
+                            <a href="https://www.youtube.com/@kanakdharajewellers" target="_blank" className="mx-3 w-fit text-white hover:scale-[120%] duration-300">
+                                <FaYoutube className="" />
+                            </a>
+                            <a href="https://www.instagram.com/kanakdharajewellers/?igshid=MWI4MTIyMDE%3D" target="_blank" className="mx-3 w-fit text-white hover:scale-[120%] duration-300">
                                 <FaInstagram className="" />
                             </a>
                         </div>
@@ -188,13 +206,13 @@ export const Navbar = () => {
 
                         {/* Social Icons */}
                         <div className="lg:w-[25%] flex justify-end items-center my-auto">
-                            <a href="#" className="mx-3 w-fit hover:scale-[120%] duration-300 hover:text-[#71074F]">
-                                <FaXTwitter className="" />
-                            </a>
-                            <a href="#" className="mx-3 w-fit hover:scale-[120%] duration-300 hover:text-[#71074F]">
+                            <a href="https://www.facebook.com/kanakdharajewellers?mibextid=LQQJ4d" target="_blank" className="mx-3 w-fit hover:scale-[120%] duration-300 hover:text-[#71074F]">
                                 <FaFacebookF className="" />
                             </a>
-                            <a href="#" className="mx-3 w-fit hover:scale-[120%] duration-300 hover:text-[#71074F]">
+                            <a href="https://www.youtube.com/@kanakdharajewellers" target="_blank" className="mx-3 w-fit hover:scale-[120%] duration-300 hover:text-[#71074F]">
+                                <FaYoutube className="" />
+                            </a>
+                            <a href="https://www.instagram.com/kanakdharajewellers/?igshid=MWI4MTIyMDE%3D" target="_blank" className="mx-3 w-fit hover:scale-[120%] duration-300 hover:text-[#71074F]">
                                 <FaInstagram className="" />
                             </a>
                         </div>
@@ -206,8 +224,24 @@ export const Navbar = () => {
 }
 
 export const Footer = () => {
+
+    const [cat, setCat] = useState([]);
+
+    const getallcategories = async () => {
+
+        const res = await GetCategories();
+
+        if (res.success) {
+            setCat(res.success);
+        }
+    };
+
+    useEffect(() => {
+        getallcategories();
+    }, []);
+
     return (
-        <div className="lg:p-16 bg-gray-300">
+        <div className="lg:p-16 bg-[#71074F]">
 
             {/* Main */}
             <div className="w-full flex pb-10">
@@ -218,18 +252,18 @@ export const Footer = () => {
                         className="w-full h-auto"
                     />
 
-                    <div className="my-3">
+                    <div className="my-3 text-white">
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
                     </div>
 
                     <div className="flex items-center my-auto">
-                        <a href="#" target="_blank" className="p-2 rounded-full border border-gray-400 hover:text-white hover:bg-[#71074F] duration-300">
-                            <FaXTwitter className="" />
+                        <a href="https://www.youtube.com/@kanakdharajewellers" target="_blank" className="p-2 rounded-full border border-white text-white hover:bg-[#EFCF77] hover:border-yellow-500 hover:text-[#71074F] duration-300">
+                            <FaYoutube className="" />
                         </a>
-                        <a href="#" target="_blank" className="mx-4 p-2 rounded-full border border-gray-400 hover:text-white hover:bg-[#71074F] duration-300">
+                        <a href="https://www.facebook.com/kanakdharajewellers?mibextid=LQQJ4d" target="_blank" className="mx-4 p-2 rounded-full border border-white text-white hover:bg-[#EFCF77] hover:border-yellow-500 hover:text-[#71074F] duration-300">
                             <FaFacebookF className="" />
                         </a>
-                        <a href="#" target="_blank" className="p-2 rounded-full border border-gray-400 hover:text-white hover:bg-[#71074F] duration-300">
+                        <a href="https://www.instagram.com/kanakdharajewellers/?igshid=MWI4MTIyMDE%3D" target="_blank" className="p-2 rounded-full border border-white text-white hover:bg-[#EFCF77] hover:border-yellow-500 hover:text-[#71074F] duration-300">
                             <FaInstagram className="" />
                         </a>
                     </div>
@@ -239,20 +273,20 @@ export const Footer = () => {
 
                     <div className="flex justify-center mx-auto">
                         <div className="px-3">
-                            <div className="font-semibold text-lg">
+                            <div className="font-semibold text-xl text-[#EFCF77]">
                                 Useful Links
                             </div>
-                            <div className="mt-3 grid grid-cols-1 gap-2 pl-1">
-                                <a href="#" className="w-fit hover:text-[#71074F] duration-300">
+                            <div className="mt-5 grid grid-cols-1 gap-2 pl-1 text-white">
+                                <a href="#" className="w-fit hover:text-[#EFCF77] hover:scale-[105%] duration-300">
                                     Privacy Policy
                                 </a>
-                                <a href="#" className="w-fit hover:text-[#71074F] duration-300">
+                                <a href="#" className="w-fit hover:text-[#EFCF77] hover:scale-[105%] duration-300">
                                     Terms & Conditions
                                 </a>
-                                <a href="#" className="w-fit hover:text-[#71074F] duration-300">
+                                <a href="#" className="w-fit hover:text-[#EFCF77] hover:scale-[105%] duration-300">
                                     Refund Policy
                                 </a>
-                                <a href="#" className="w-fit hover:text-[#71074F] duration-300">
+                                <a href="#" className="w-fit hover:text-[#EFCF77] hover:scale-[105%] duration-300">
                                     Contact Us
                                 </a>
                             </div>
@@ -261,54 +295,40 @@ export const Footer = () => {
 
                     <div className="flex justify-center mx-auto">
                         <div className="px-3">
-                            <div className="font-semibold text-lg">
+                            <div className="font-semibold text-xl text-[#EFCF77]">
                                 Gold Jewellry
                             </div>
-                            <div className="mt-3 grid grid-cols-1 gap-2 pl-1">
-                                <a href="#" className="w-fit hover:text-[#71074F] duration-300">
-                                    Bracelet
-                                </a>
-                                <a href="#" className="w-fit hover:text-[#71074F] duration-300">
-                                    Earings
-                                </a>
-                                <a href="#" className="w-fit hover:text-[#71074F] duration-300">
-                                    Necklace
-                                </a>
-                                <a href="#" className="w-fit hover:text-[#71074F] duration-300">
-                                    Pendant Set
-                                </a>
-                                <a href="#" className="w-fit hover:text-[#71074F] duration-300">
-                                    Pendants
-                                </a>
-                                <a href="#" className="w-fit hover:text-[#71074F] duration-300">
-                                    Rings & Bands
-                                </a>
-                                <a href="#" className="w-fit hover:text-[#71074F] duration-300">
-                                    Watches
-                                </a>
+                            <div className="mt-5 grid grid-cols-1 gap-2 pl-1 text-white">
+                                {cat.map((i) => {
+                                    return (
+                                        <a href={`/gold-jewellery/${i.category.toLowerCase().replace(/ /g, '-')}`} className="w-fit hover:text-[#EFCF77] hover:scale-[105%] duration-300">
+                                            {i.category}
+                                        </a>
+                                    )
+                                })}
                             </div>
                         </div>
                     </div>
 
                     <div className="flex justify-center mx-auto">
                         <div className="px-3">
-                            <div className="font-semibold text-lg">
+                            <div className="font-semibold text-xl text-[#EFCF77]">
                                 Contact Us
                             </div>
-                            <div className="mt-3 grid grid-cols-1 gap-2 pl-1">
-                                <a href="#" className="w-fit hover:text-[#71074F] duration-300 flex items-center my-auto">
+                            <div className="mt-5 grid grid-cols-1 gap-2 pl-1 text-white">
+                                <a href="+919510902129" className="w-fit hover:text-[#EFCF77] hover:scale-[105%] duration-300 flex items-center my-auto">
                                     <IoIosCall className="mr-2" />
-                                    <span>+91 XXXXXXXXXXX</span>
+                                    <span>+91 9510902129</span>
                                 </a>
-                                <a href="#" className="w-fit hover:text-[#71074F] duration-300 flex items-center my-auto">
+                                <a href="mailto:mitzchhajed@gmail.com" className="w-fit hover:text-[#EFCF77] hover:scale-[105%] duration-300 flex items-center my-auto">
                                     <IoIosMail className="mr-2" />
-                                    <span>info@kanakdharajewellers.com</span>
+                                    <span>mitzchhajed@gmail.com</span>
                                 </a>
-                                <a href="#" className="w-fit hover:text-[#71074F] duration-300 flex items-center my-auto">
+                                <a href="https://api.whatsapp.com/send?phone=919510902129" target="_blank" className="w-fit hover:text-[#EFCF77] hover:scale-[105%] duration-300 flex items-center my-auto">
                                     <IoLogoWhatsapp className="mr-2" />
-                                    <span>Kanakdhara Jewellers</span>
+                                    <span>+91 9510902129</span>
                                 </a>
-                                <a href="#" className="w-fit hover:text-[#71074F] duration-300 flex">
+                                <a href="#" className="w-fit hover:text-[#EFCF77] hover:scale-[105%] duration-300 flex">
                                     <FaLocationDot className="mt-1 mr-2" />
                                     <div style={{ maxWidth: 'calc(100% - 1.5em)' }}>
                                         <span>114, Kanak Chamber, Gandhi Road, Ahmedabad - 380001</span>
@@ -321,7 +341,7 @@ export const Footer = () => {
             </div>
 
             {/* Copyright */}
-            <div className="pt-10 border-t border-gray-400 text-gray-700 text-center flex justify-center mx-auto">
+            <div className="pt-10 border-t border-gray-400 text-gray-300 text-center flex justify-center mx-auto">
                 © Copyright 2022. All Rights Reserved by Kanakdhara Jewellers.
             </div>
         </div>

@@ -4,7 +4,7 @@ import Alert from '@mui/material/Alert';
 import Snackbar from '@mui/material/Snackbar';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
-import { Oval } from "react-loader-spinner";
+import { Rings, Oval } from "react-loader-spinner";
 import { FaUser, FaRegUserCircle } from "react-icons/fa";
 import jwt from 'jsonwebtoken';
 import {
@@ -29,13 +29,12 @@ import Image from "next/image";
 export const Loader = () => {
     return (
         <div>
-            <Oval
+            <Rings
                 visible={true}
                 height="80"
                 width="80"
-                color="#71074F"
-                secondaryColor="#daa520"
-                ariaLabel="oval-loading"
+                color="#DAA520"
+                ariaLabel="rings-loading"
                 wrapperStyle={{}}
                 wrapperClass=""
             />

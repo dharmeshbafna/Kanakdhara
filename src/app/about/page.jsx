@@ -1,3 +1,6 @@
+import { AboutComp, Manufacturing } from "@/components/about"
+import { CTA } from "@/components/home"
+
 export const metadata = {
     title: 'About - Kanakdhara',
     icons: {
@@ -5,10 +8,12 @@ export const metadata = {
     }
 }
 
-export default function CONTACT () {
+export default function CONTACT() {
     return (
-        <div className="h-[100vh] flex justify-center items-center w-full m-auto">
-                About
+        <div className="">
+            <AboutComp />
+            <Manufacturing />
+            <CTA />
         </div>
     )
 }

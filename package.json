@@ -25,6 +25,7 @@
     "react-loader-spinner": "^6.1.6",
     "react-native-fingerprint-scanner": "^6.0.0",
     "react-slick": "^0.30.2",
+    "react-youtube": "^10.1.0",
     "slick-carousel": "^1.8.1"
   },
   "devDependencies": {

@@ -18,6 +18,7 @@ import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 
 import { GetCategories } from "@/api/product";
+import { usePathname } from "next/navigation";
 
 const simonetta = Simonetta({ weight: '400', subsets: ["latin"] });
 const simonetta2 = Simonetta({ weight: '900', subsets: ["latin"] });
@@ -44,12 +45,13 @@ export const Banner = () => {
             </div>
 
             {/* Text between slider & bg */}
-            <div className="absolute top-[40%] right-20 z-30 lg:w-[30%]">
-                <div className={`${simonetta.className} text-white text-[55px]`}>
-                    Looks Good
+            <div className="absolute top-[40%] right-20 z-30 lg:w-[35%]">
+                <div className={`${simonetta.className} text-white text-[40px]`}>
+                    Kanakdhara Jewellers
                 </div>
-                <div className="text-white text-sm mt-1">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                <div className="text-white text-sm mt-2">
+
+                    Welcome to Kanakdhara Jewellers, where excellence and craftsmanship converge to offer a diverse array of exquisite plain gold casting jewelry, meticulously crafted in the heart of Ahmedabad, India.
                 </div>
             </div>
 
@@ -64,7 +66,7 @@ export const Banner = () => {
             </div>
 
             {/* Slider */}
-            <div className="w-[75%] pb-8 pr-20 -ml-10">
+            {/* <div className="w-[75%] pb-8 pr-20 -ml-10">
                 <Slider ref={sliderRef} {...settings} className="">
                     <div className="relative w-full h-[70vh] focus:outline-none shadow-lg">
                         <Image
@@ -83,6 +85,18 @@ export const Banner = () => {
                         />
                     </div>
                 </Slider>
+            </div> */}
+
+            {/* video */}
+            <div className="w-[75%] pb-8 pr-20 -ml-10">
+                <div className="relative w-full h-[70vh] focus:outline-none shadow-lg">
+                    
+
+                    <video width="100%" height="100%" loop autoPlay muted>
+                        <source src="/intro.mp4" type="video/mp4" />
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
             </div>
         </div>
     )
@@ -146,11 +160,11 @@ export const Products = () => {
                             .map((i) => {
                                 return (
                                     <button
-                                    onClick={() => {
-                                        setModal(true);
-                                        setImgPopup(i.imglink);
-                                    }} 
-                                    className="shadow-lg relative h-56 w-56 hover:scale-[110%] duration-300">
+                                        onClick={() => {
+                                            setModal(true);
+                                            setImgPopup(i.imglink);
+                                        }}
+                                        className="shadow-lg relative h-56 w-56 hover:scale-[110%] duration-300">
                                         <Image
                                             src={i.imglink}
                                             objectFit="cover"
@@ -183,7 +197,7 @@ export const Products = () => {
                             priority={true}
                             width={300}
                             height={300}
-                            className="flex justify-center items-center m-auto w-full h-auto md:max-h-[500px] md:w-auto"
+                            className="flex justify-center items-center m-auto w-full h-auto md:max-h-[500px] md:min-w-[500px]"
                         />
                     </div>
                 </Box>
@@ -216,16 +230,13 @@ export const About = () => {
 
                 <div className="flex items-center my-auto p-3">
                     <div>
-                        <div className="text-base">
-                            Basic and Exquisite
-                        </div>
                         <div className={`${simonetta.className} text-[50px]`}>
                             About Us
                         </div>
-                        <div className="">
-                            What you need, wear how you need, celebrate with when you need, and keep for eternity. It's for great minutes, minor achievements, and in the middle between.
+                        <div className="mt-3">
+                            A renowned presence in the heart of Ahmedabad, India, we stand as a premier Plain Gold Casting Jewelry Manufacturer, epitomizing excellence and craftsmanship.
                             <br /><br />
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                            Our dedication to perfection is evident in every piece we create, meticulously crafting a diverse array of exquisite 18k and 22k hallmarked plain gold casting rings, bracelets, pendants, and earrings.
                         </div>
                         <div className="w-fit mt-7">
                             <a href="/about" className="focus:outline-none px-5 py-2 border border-black hover:bg-black hover:text-white duration-300 hover:shadow-lg">
@@ -246,22 +257,19 @@ export const Desc = () => {
 
                 <div className="flex items-center my-auto">
                     <div>
-                        <div className="text-base">
-                            Basic and Exquisite
-                        </div>
-                        <div className={`${simonetta.className} text-[50px]`}>
+                        <div className={`${simonetta.className} text-[50px] text-[#EFCF77]`}>
                             Fine Jewellery
                         </div>
-                        <div className="">
-                            What you need, wear how you need, celebrate with when you need, and keep for eternity. It's for great minutes, minor achievements, and in the middle between.
+                        <div className="mt-3">
+                            What you need, wear how you need, celebrate with when you need, and keep for eternity. Our jewelry is not just for grand occasions; it's for the everyday moments that make life extraordinary.
                             <br /><br />
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                            Whether it's a significant milestone or a simple joy, our pieces are crafted to accompany you through every step of your journey. From the unforgettable moments to the quiet in-betweens, our collections are designed to be cherished for a lifetime, capturing the essence of each moment and turning them into timeless memories.
                         </div>
-                        <div className="w-fit mt-7">
+                        {/* <div className="w-fit mt-7">
                             <a href="#" className="focus:outline-none px-5 py-2 border border-white hover:bg-white hover:text-[#71074F] duration-300 hover:shadow-lg">
                                 Read More
                             </a>
-                        </div>
+                        </div> */}
                     </div>
                 </div>
 
@@ -281,6 +289,27 @@ export const Desc = () => {
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+    )
+}
+
+export const CTA = () => {
+
+    const path = usePathname();
+
+    return (
+        <div className={`min-h-[70vh] flex items-center justify-center m-auto ${path == '/contact' ? 'hidden' : ''}`}>
+            <div>
+                <div className={`${simonetta.className} flex justify-center mx-auto text-[3.25rem]`}>
+                    Contact Us
+                </div>
+                <div className="mt-4 mb-6 lg:w-[80%] text-center flex justify-center mx-auto">
+                    If you have any queries or need any help, feel free to contact us.
+                </div>
+                <a href="/contact" className="focus:outline-none px-5 py-2 border border-black hover:bg-black hover:text-white duration-300 hover:shadow-lg flex justify-center mx-auto w-fit">
+                    Contact Us
+                </a>
             </div>
         </div>
     )
