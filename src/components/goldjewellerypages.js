@@ -63,6 +63,7 @@ export const Main = ({ name }) => {
             });
         }, 1000);
     };
+    
 
     return (
         <div className={`lg:px-16 ${load ? '' : 'pt-24 pb-10'}`}>
