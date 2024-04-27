@@ -86,13 +86,13 @@ export const Main = ({ name }) => {
                             .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
                             .map((i) => {
                                 return (
-                                    <div className="flex-col justify-center mx-auto">
+                                    <div className="flex-col justify-center mx-auto w-full">
                                         <button
                                             onClick={() => {
                                                 setModal(true);
                                                 setImgPopup(i);
                                             }}
-                                            className="shadow-lg relative h-56 w-56 hover:scale-[110%] duration-300 hover:text-[#EFCF77] product-overlay text-transparent">
+                                            className="shadow-lg relative w-full h-60 md:h-56 md:w-56 hover:scale-[110%] duration-300 hover:text-[#EFCF77] product-overlay text-transparent">
                                             <Image
                                                 src={i.imglink}
                                                 objectFit="cover"
