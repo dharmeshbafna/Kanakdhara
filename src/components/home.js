@@ -289,6 +289,7 @@ export const Products = () => {
                 aria-describedby="modal-modal-description"
             >
                 <Box className="absolute top-1/2 left-1/2 bg-transparent shadow-lg focus:outline-none -translate-x-1/2 -translate-y-1/2 w-[90%] md:min-w-[65%] lg:w-auto md:max-w-[80%]">
+                    
                     <div className="grid grid-cols-1 lg:flex">
                         <Image
                             src={imgpopup.imglink}
