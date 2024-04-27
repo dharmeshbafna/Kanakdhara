@@ -20,7 +20,7 @@ const simonetta = Simonetta({ weight: '400', subsets: ["latin"] });
 
 export const AboutComp = () => {
     return (
-        <div className="lg:px-16 pt-24 pb-14">
+        <div className="lg:px-16 pt-24 pb-14 px-5">
 
             <div className="my-10 flex justify-center mx-auto">
                 <div className="w-fit ">
@@ -31,10 +31,19 @@ export const AboutComp = () => {
                 </div>
             </div>
 
-            <div className="flex w-full">
-                <div className="lg:w-[60%] p-3">
-                    <div className={` ${simonetta.className} text-[2.5rem]`}>
-                        Welcome to Kanakdhara Jewellers
+            <div className="grid grid-cols-1 gap-4 lg:flex w-full">
+
+                <div className="lg:hidden">
+                    <Image
+                        src={AboutImg}
+                        className="w-full h-auto flex justify-center items-center m-auto shadow-lg"
+                        priority={true}
+                    />
+                </div>
+
+                <div className="lg:w-[60%] lg:p-3">
+                    <div className={` ${simonetta.className} text-4xl md:text-[2.5rem]`}>
+                        About Kanakdhara Jewellers
                     </div>
                     <div className="mt-4">
                         A renowned presence in the heart of Ahmedabad, India, we stand as a premier Plain Gold Casting Jewelry Manufacturer, epitomizing excellence and craftsmanship.
@@ -45,7 +54,7 @@ export const AboutComp = () => {
                     </div>
                 </div>
 
-                <div className="lg:w-[40%] p-3 ">
+                <div className="hidden lg:block lg:w-[40%] lg:p-3 ">
                     <Image
                         src={AboutImg}
                         className="w-full h-auto flex justify-center items-center m-auto shadow-lg"
@@ -59,16 +68,16 @@ export const AboutComp = () => {
 
 export const Manufacturing = () => {
     return (
-        <div className="bg-gray-200 lg:px-16 py-16">
+        <div className="bg-gray-200 lg:px-16 py-16 px-5">
 
-            <div className="grid grid-cols-2 gap-2">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-2">
 
                 <div className="relative flex justify-center items-center m-auto w-full h-full">
                     <Image
                         src={Necklace}
                         className="h-96 w-auto rounded-t-full shadow-lg"
                     />
-                    <div className="absolute -bottom-3 right-10">
+                    <div className="absolute -bottom-3 right-0 lg:right-10">
                         <div className="relative h-48 w-48 rounded-full overflow-hidden shadow-lg">
                             <Image
                                 src={Bangles}
@@ -80,7 +89,7 @@ export const Manufacturing = () => {
                     </div>
                 </div>
 
-                <div className="flex items-center my-auto p-3">
+                <div className="flex items-center my-auto md:p-3">
                     <div>
                         <div className={`${simonetta.className} text-[2.5rem]`}>
                             Manufacturing

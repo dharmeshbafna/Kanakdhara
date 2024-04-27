@@ -69,3 +69,7 @@
   transition: all 0.6s ease;
   transform: rotate(360deg);
 }
+
+.product-overlay:hover .bg {
+  background-color: #71074f78;
+}

@@ -5,6 +5,7 @@ import Image from "next/image";
 import { Simonetta } from "next/font/google"
 import { GetCategories } from "@/api/product";
 import { LoaderComp } from "./other";
+import { FaWhatsapp } from "react-icons/fa";
 
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
@@ -63,10 +64,10 @@ export const Main = ({ name }) => {
             });
         }, 1000);
     };
-    
+
 
     return (
-        <div className={`lg:px-16 ${load ? '' : 'pt-24 pb-10'}`}>
+        <div className={`lg:px-16 ${load ? '' : 'pt-24 pb-10'} px-5`}>
             {load ?
                 <LoaderComp />
                 :
@@ -80,7 +81,7 @@ export const Main = ({ name }) => {
                         </div>
                     </div>
                     {/* Items */}
-                    <div className="grid grid-cols-4 gap-7">
+                    <div className="grid gris-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-7">
                         {data.products && data.products
                             .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
                             .map((i) => {
@@ -91,7 +92,7 @@ export const Main = ({ name }) => {
                                                 setModal(true);
                                                 setImgPopup(i);
                                             }}
-                                            className="shadow-lg relative h-56 w-56 hover:scale-[110%] duration-300">
+                                            className="shadow-lg relative h-56 w-56 hover:scale-[110%] duration-300 hover:text-[#EFCF77] product-overlay text-transparent">
                                             <Image
                                                 src={i.imglink}
                                                 objectFit="cover"
@@ -99,6 +100,8 @@ export const Main = ({ name }) => {
                                                 objectPosition="center"
                                                 className="bg-white"
                                             />
+                                            <FaWhatsapp className="text-xl absolute top-1/2 left-1/2 z-30" />
+                                            <div className="absolute top-0 left-0 w-full h-full bg"></div>
                                         </button>
                                         <div className="flex justify-center mx-auto text-center mt-3">{i.title}</div>
                                     </div>
@@ -114,13 +117,13 @@ export const Main = ({ name }) => {
                 aria-describedby="modal-modal-description"
             >
                 <Box className="absolute top-1/2 left-1/2 bg-transparent shadow-lg focus:outline-none -translate-x-1/2 -translate-y-1/2 w-[90%] md:min-w-[65%] lg:w-auto md:max-w-[80%]">
-                    <div className=" flex">
+                    <div className="grid grid-cols-1 lg:flex">
                         <Image
                             src={imgpopup.imglink}
                             priority={true}
                             width={300}
                             height={300}
-                            className="flex justify-center items-center m-auto w-full h-auto md:max-h-[500px] md:min-w-[500px]"
+                            className="flex justify-center items-center m-auto w-full h-auto max-h-[300px] md:max-h-[500px] md:min-w-[500px]"
                         />
 
                         <div className="p-3 bg-white">

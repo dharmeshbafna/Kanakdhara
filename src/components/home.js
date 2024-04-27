@@ -7,6 +7,7 @@ import { Simonetta } from "next/font/google"
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import { FaWhatsapp } from "react-icons/fa";
 
 import Slider1 from "../../public/slider1.jpeg";
 import Slider2 from "../../public/slider2.jpeg";
@@ -38,31 +39,30 @@ export const Banner = () => {
         pauseOnHover: false,
     };
     return (
-        <div className="h-[100vh] w-full relative flex justify-center items-end lg:px-16">
+        <div className="h-[70vh] md:h-[60vh] lg:h-[100vh] w-full relative flex justify-center items-end lg:px-16">
 
             {/* Pink Shade bg */}
-            <div className="absolute w-[40%] top-0 right-0 h-[85vh] bg-[#71074F] shadow-lg">
+            <div className="absolute w-1/2 lg:w-[40%] top-0 right-0 h-1/2 md:h-[75%] lg:h-[85%] bg-[#71074F] shadow-lg">
             </div>
 
             {/* Text between slider & bg */}
-            <div className="absolute top-[40%] right-20 z-30 lg:w-[35%]">
-                <div className={`${simonetta.className} text-white text-[40px]`}>
+            <div className="hidden md:block absolute top-[20%] md:top-[40%] right-0 md:right-5 lg:right-20 z-30 w-1/2 md:w-[35%]">
+                <div className={`${simonetta.className} text-white text-3xl lg:text-[40px]`}>
                     Kanakdhara Jewellers
                 </div>
-                <div className="text-white text-sm mt-2">
-
+                <div className="text-white text-sm mt-5">
                     Welcome to Kanakdhara Jewellers, where excellence and craftsmanship converge to offer a diverse array of exquisite plain gold casting jewelry, meticulously crafted in the heart of Ahmedabad, India.
                 </div>
             </div>
 
             {/* Line below logo */}
-            <div className="absolute left-20 top-[22%]">
-                <div className="h-12 border-l border-yellow-400 ml-4"></div>
+            <div className="block absolute left-2 lg:left-20 bottom-12 md:bottom-0 lg:bottom-auto lg:top-[22%]">
+                <div className="h-8 md:h-12 border-l border-yellow-400 ml-3 md:ml-4"></div>
                 <Image
                     src={NameLogo}
-                    className="w-6 h-auto my-2"
+                    className="w-4 md:w-6 h-auto my-2"
                 />
-                <div className="h-12 border-l border-yellow-400 ml-4"></div>
+                <div className="h-8 md:h-12 border-l border-yellow-400 ml-3 md:ml-4"></div>
             </div>
 
             {/* Slider */}
@@ -88,14 +88,28 @@ export const Banner = () => {
             </div> */}
 
             {/* video */}
-            <div className="w-[75%] pb-8 pr-20 -ml-10">
-                <div className="relative w-full h-[70vh] focus:outline-none shadow-lg">
-                    
+            <div className="w-full lg:w-[75%] px-5 lg:pb-8 lg:pr-20 lg:-ml-10 relative">
+                <div className="relative w-full h-[70vh] focus:outline-none">
 
-                    <video width="100%" height="100%" loop autoPlay muted>
+
+                    <video width="100%" height="100%" loop autoPlay muted className="hidden lg:block shadow-lg">
                         <source src="/intro.mp4" type="video/mp4" />
                         Your browser does not support the video tag.
                     </video>
+
+                    <video loop autoPlay muted className="w-[93%] md:w-[80%] h-[100%] absolute left-4 bottom-10 md:left-8 md:-bottom-20 lg:hidden">
+                        <source src="/intro.mp4" type="video/mp4" />
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+            </div>
+
+            <div className="md:hidden absolute bottom-4 left-4 px-5">
+                <div className={`${simonetta.className} text-black text-4xl`}>
+                    Kanakdhara Jewellers
+                </div>
+                <div className="text-black text-sm mt-5">
+                    Welcome to Kanakdhara Jewellers, where excellence and craftsmanship converge to offer a diverse array of exquisite plain gold casting jewelry, meticulously crafted in the heart of Ahmedabad, India.
                 </div>
             </div>
         </div>
@@ -108,6 +122,32 @@ export const Products = () => {
     const [activeCat, setActiveCat] = useState('');
     const [modal, setModal] = useState(false);
     const [imgpopup, setImgPopup] = useState('');
+    const [activeSlide, setActiveSlide] = useState(0);
+    const [fd, setFd] = useState({
+        name: '',
+        contact: '',
+        message: ''
+    });
+    const sliderRef = useRef();
+    const settings = {
+        dots: true,
+        infinite: true,
+        speed: 500,
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        arrows: false,
+        autoplay: true,
+        autoplaySpeed: 2300,
+        beforeChange: (current, next) => setActiveSlide(next),
+        customPaging: ((i, index) => {
+            return (
+                <div className={`${i == activeSlide ? 'bg-black' : 'bg-gray-200'} rounded-full w-3 h-3`}>
+
+                </div>
+            )
+        }),
+        dotsClass: "slick-dots",
+    };
 
     const getallcategories = async () => {
 
@@ -120,12 +160,31 @@ export const Products = () => {
 
     };
 
+    const handlemessage = (e) => {
+        e.preventDefault();
+
+        const message = `Hello Kanakdhara Jewellers, I want to talk about this item which i found on your website. \n\nName: ${fd.name}\nContact: ${fd.contact}\nMessage: ${fd.message}\nCategory: ${data.category}\nTitle: ${imgpopup.title}\nImageurl: ${imgpopup.imglink}
+        `;
+        const encodedMessage = encodeURIComponent(message);
+        const whatsappUrl = `https://wa.me/919510902129?text=${encodedMessage}`;
+        window.open(whatsappUrl, '_blank');
+
+        setTimeout(() => {
+            setModal(false);
+            setFd({
+                name: '',
+                contact: '',
+                message: ''
+            });
+        }, 1000);
+    };
+
     useEffect(() => {
         getallcategories();
     }, []);
 
     return (
-        <div className="py-14 lg:px-16 min-h-[100vh] flex items-center my-auto">
+        <div className="px-5 py-16 lg:py-14 lg:px-16 lg:min-h-[100vh] flex items-center my-auto">
             <div className="w-full">
                 <div className="text-base flex justify-center mx-auto text-center">
                     Basic and Exquisite
@@ -134,8 +193,8 @@ export const Products = () => {
                     Our Products
                 </div>
 
-                <div className="flex items-center justify-center m-auto py-4 w-full">
-                    {data && data.map((i) => {
+                <div className="grid grid-cols-2 md:grid-cols-3 gap-2 lg:flex items-center justify-center m-auto py-4 w-full">
+                    {/* {data && data.map((i) => {
                         return (
                             <div>
                                 <div onClick={() => setActiveCat(i)} className="mx-2 w-fit hover:scale-[110%] duration-300 focus:outline-none">
@@ -149,10 +208,18 @@ export const Products = () => {
                                 </div>
                             </div>
                         )
+                    })} */}
+                    {data && data.map((i) => {
+                        return (
+                            <button onClick={() => setActiveCat(i)} className={`${i._id == activeCat._id ? 'bg-[#71074F] text-[#EFCF77]' : ''} w-full px-2 py-1 border border-[#71074F] hover:bg-[#71074F] hover:text-[#EFCF77] duration-300`}>
+                                {i.category}
+                            </button>
+                        )
                     })}
                 </div>
 
-                <div className="flex items-center justify-center m-auto w-full py-3">
+                {/* Items Desktop*/}
+                <div className="hidden lg:flex items-center justify-center m-auto w-full py-3">
                     <div className="grid grid-cols-4 gap-6">
                         {activeCat.products && activeCat.products
                             .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
@@ -162,9 +229,9 @@ export const Products = () => {
                                     <button
                                         onClick={() => {
                                             setModal(true);
-                                            setImgPopup(i.imglink);
+                                            setImgPopup(i);
                                         }}
-                                        className="shadow-lg relative h-56 w-56 hover:scale-[110%] duration-300">
+                                        className="shadow-lg relative h-56 w-56 hover:scale-[110%] duration-300 hover:text-[#EFCF77] product-overlay text-transparent">
                                         <Image
                                             src={i.imglink}
                                             objectFit="cover"
@@ -172,13 +239,44 @@ export const Products = () => {
                                             objectPosition="center"
                                             className="bg-white"
                                         />
+                                        <FaWhatsapp className="text-xl absolute top-1/2 left-1/2 z-30" />
+                                        <div className="absolute top-0 left-0 w-full h-full bg"></div>
                                     </button>
                                 )
                             })}
                     </div>
                 </div>
 
-                <div className="flex justify-center mt-3">
+                {/* Items Responsive*/}
+                <div className="lg:hidden pt-3 pb-5">
+                    <Slider ref={sliderRef} {...settings} className="">
+                        {activeCat.products && activeCat.products
+                            .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+                            .slice(0, 4)
+                            .map((i) => {
+                                return (
+                                    <button
+                                        onClick={() => {
+                                            setModal(true);
+                                            setImgPopup(i);
+                                        }}
+                                        className="relative w-full h-60 md:h-96 duration-300 mb-4 hover:text-[#EFCF77] product-overlay text-transparent">
+                                        <Image
+                                            src={i.imglink}
+                                            objectFit="cover"
+                                            layout="fill"
+                                            objectPosition="center"
+                                            className="bg-white"
+                                        />
+                                        <FaWhatsapp className="text-xl absolute top-1/2 left-1/2 z-30" />
+                                        <div className="absolute top-0 left-0 w-full h-full bg"></div>
+                                    </button>
+                                )
+                            })}
+                    </Slider>
+                </div>
+
+                <div className="flex justify-center mt-5">
                     <a href={`/gold-jewellery/${activeCat ? activeCat.category.toLowerCase().replace(/ /g, '-') : ''}`} className="focus:outline-none px-5 py-2 border border-black hover:bg-black hover:text-white duration-300 hover:shadow-lg">
                         View All
                     </a>
@@ -190,15 +288,56 @@ export const Products = () => {
                 aria-labelledby="modal-modal-title"
                 aria-describedby="modal-modal-description"
             >
-                <Box className="absolute top-1/2 left-1/2 bg-white shadow-lg focus:outline-none -translate-x-1/2 -translate-y-1/2 w-[90%] md:w-[65%] lg:w-auto md:max-w-[80%]">
-                    <div className="">
+                <Box className="absolute top-1/2 left-1/2 bg-transparent shadow-lg focus:outline-none -translate-x-1/2 -translate-y-1/2 w-[90%] md:min-w-[65%] lg:w-auto md:max-w-[80%]">
+                    <div className="grid grid-cols-1 lg:flex">
                         <Image
-                            src={imgpopup}
+                            src={imgpopup.imglink}
                             priority={true}
                             width={300}
                             height={300}
-                            className="flex justify-center items-center m-auto w-full h-auto md:max-h-[500px] md:min-w-[500px]"
+                            className="flex justify-center items-center m-auto w-full h-auto max-h-[300px] md:max-h-[500px] md:min-w-[500px]"
                         />
+
+                        <div className="p-3 bg-white">
+                            <div className="flex items-center my-auto h-full">
+                                <div className="">
+                                    <div className={`${simonetta.className} text-2xl`}>
+                                        Get Info
+                                    </div>
+                                    <form onSubmit={handlemessage} className="w-full mt-3">
+
+                                        <input
+                                            className="w-full h-fit p-2 border border-black focus:outline-none focus:border focus:border-yellow-600"
+                                            placeholder="Full Name"
+                                            value={fd.name}
+                                            onChange={(e) => setFd({ ...fd, name: e.target.value })}
+                                            required
+                                        />
+
+                                        <input
+                                            className="mt-2 w-full h-fit p-2 border border-black focus:outline-none focus:border focus:border-yellow-600"
+                                            placeholder="Contact Number"
+                                            value={fd.contact}
+                                            onChange={(e) => setFd({ ...fd, contact: e.target.value })}
+                                            required
+                                        />
+
+                                        <textarea
+                                            className="mt-2 w-full h-fit p-2 border border-black focus:outline-none focus:border focus:border-yellow-600"
+                                            placeholder="Message"
+                                            value={fd.message}
+                                            onChange={(e) => setFd({ ...fd, message: e.target.value })}
+                                            rows={4}
+                                            required
+                                        >
+                                        </textarea>
+                                        <button type="submit" className="focus:outline-none px-5 py-2 border border-black hover:bg-black hover:text-white duration-300 hover:shadow-lg">
+                                            Send Message
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </Box>
             </Modal>
@@ -208,15 +347,15 @@ export const Products = () => {
 
 export const About = () => {
     return (
-        <div className="py-14 lg:px-16 bg-gray-100 min-h-[100vh] items-center my-auto flex">
-            <div className="grid grid-cols-2 gap-2">
+        <div className="px-5 py-16 lg:py-14 lg:px-16 bg-gray-100 lg:min-h-[100vh] items-center my-auto flex">
+            <div className="grid md:grid-cols-2 gap-8 md:gap-2">
 
-                <div className="relative flex justify-center items-center m-auto w-full">
+                <div className="relative hidden md:flex justify-center items-center m-auto w-full">
                     <Image
                         src={Necklace}
                         className="h-96 w-auto rounded-t-full shadow-lg"
                     />
-                    <div className="absolute -bottom-3 right-10">
+                    <div className="absolute -bottom-3 right-0 lg:right-10">
                         <div className="relative h-48 w-48 rounded-full overflow-hidden shadow-lg">
                             <Image
                                 src={Bangles}
@@ -245,6 +384,23 @@ export const About = () => {
                         </div>
                     </div>
                 </div>
+
+                <div className="relative md:hidden flex justify-center items-center m-auto w-full">
+                    <Image
+                        src={Necklace}
+                        className="h-96 w-auto rounded-t-full shadow-lg"
+                    />
+                    <div className="absolute -bottom-3 -right-2">
+                        <div className="relative h-48 w-48 rounded-full overflow-hidden shadow-lg">
+                            <Image
+                                src={Bangles}
+                                objectFit="cover"
+                                layout="fill"
+                                className=""
+                            />
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     )
@@ -252,8 +408,8 @@ export const About = () => {
 
 export const Desc = () => {
     return (
-        <div className="py-14 lg:px-16 bg-[#71074F] min-h-[100vh] items-center my-auto flex text-white">
-            <div className="grid grid-cols-2 gap-2">
+        <div className="px-5 py-16 lg:py-0 lg:px-16 bg-[#71074F] lg:min-h-[100vh] items-center my-auto flex text-white">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-2">
 
                 <div className="flex items-center my-auto">
                     <div>
@@ -278,7 +434,7 @@ export const Desc = () => {
                         src={Necklace}
                         className="h-96 w-auto rounded-t-full shadow-lg"
                     />
-                    <div className="absolute -bottom-3 right-10">
+                    <div className="absolute -bottom-3 -right-2 md:right-0 lg:right-10">
                         <div className="relative h-48 w-48 rounded-full overflow-hidden shadow-lg">
                             <Image
                                 src={Bangles}
@@ -299,7 +455,7 @@ export const CTA = () => {
     const path = usePathname();
 
     return (
-        <div className={`min-h-[70vh] flex items-center justify-center m-auto ${path == '/contact' ? 'hidden' : ''}`}>
+        <div className={`p-5 py-16 lg:py-0 lg:min-h-[70vh] flex items-center justify-center m-auto ${path == '/contact' ? 'hidden' : ''}`}>
             <div>
                 <div className={`${simonetta.className} flex justify-center mx-auto text-[3.25rem]`}>
                     Contact Us

@@ -9,12 +9,72 @@ import { IoIosCall, IoIosMail, IoLogoWhatsapp } from "react-icons/io";
 
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
+import { Loader } from "./admin";
+
+import { ContactForm } from "@/api/form";
 
 const simonetta = Simonetta({ weight: '400', subsets: ["latin"] });
 
 export const ContactComp = () => {
+
+    const [modal, setModal] = useState(false);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState('');
+    const [success, setSuccess] = useState('');
+    const [fd, setFd] = useState({
+        name: '',
+        email: '',
+        phone: '',
+        subject: '',
+        message: ''
+    });
+
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        setModal(true);
+
+        const res = await ContactForm(fd);
+
+        if (res.success) {
+            setLoading(false);
+            setSuccess(res.success);
+            setError('');
+            setFd({
+                name: '',
+                email: '',
+                phone: '',
+                subject: '',
+                message: ''
+            })
+            setTimeout(() => {
+                setError('');
+                setSuccess('');
+                setLoading(true);
+                setModal(false);
+            }, 2500);
+        } else {
+            setLoading(false);
+            setSuccess('');
+            setError(res.error || 'Internal Server Error.');
+            setFd({
+                name: '',
+                email: '',
+                phone: '',
+                subject: '',
+                message: ''
+            })
+            setTimeout(() => {
+                setSuccess('');
+                setError('');
+                setLoading(true);
+                setModal(false);
+            }, 2500);
+        }
+    }
+
     return (
-        <div className="lg:px-16 pt-24 pb-10">
+        <div className="lg:px-16 pt-24 pb-10 px-5">
             <div className="my-10 flex justify-center mx-auto">
                 <div className="w-fit ">
                     <div className={` ${simonetta.className} text-[3.25rem] text-center flex justify-center mx-auto`}>
@@ -25,7 +85,7 @@ export const ContactComp = () => {
             </div>
 
             {/* Main */}
-            <div className="flex justify-center mx-auto">
+            <div className="grid grid-cols-1 gap-3 lg:flex justify-center mx-auto">
 
                 <div className="bg-[#71074F] p-5 shadow-lg lg:max-w-[35%]">
                     <div className="text-xl text-[#EFCF77] font-semibold">
@@ -68,40 +128,79 @@ export const ContactComp = () => {
                     </div>
                 </div>
 
-                <form className="px-3 lg:w-1/2 grid grid-cols-1 gap-3 h-fit">
+                <form onSubmit={handleSubmit} className="lg:px-3 lg:w-1/2 grid grid-cols-1 gap-3 h-fit">
                     <input
                         className="h-fit p-2 border border-black w-full focus:outline-none focus:border focus:border-yellow-600"
                         placeholder="Full Name"
+                        type="name"
+                        value={fd.name}
+                        onChange={(e) => setFd({ ...fd, name: e.target.value })}
+                        required
                     />
 
                     <div className="grid grid-cols-2 gap-2 ">
                         <input
                             className="h-fit p-2 border border-black w-full focus:outline-none focus:border focus:border-yellow-600"
                             placeholder="Email"
+                            type="email"
+                            value={fd.email}
+                            onChange={(e) => setFd({ ...fd, email: e.target.value })}
+                            required
                         />
                         <input
                             className="h-fit p-2 border border-black w-full focus:outline-none focus:border focus:border-yellow-600"
                             placeholder="Phone"
+                            type="tel"
+                            value={fd.phone}
+                            onChange={(e) => setFd({ ...fd, phone: e.target.value })}
+                            required
                         />
                     </div>
 
                     <input
                         className="h-fit p-2 border border-black w-full focus:outline-none focus:border focus:border-yellow-600"
                         placeholder="Subject"
+                        value={fd.subject}
+                        onChange={(e) => setFd({ ...fd, subject: e.target.value })}
+                        required
                     />
 
                     <textarea
                         className="h-fit p-2 border border-black w-full focus:outline-none focus:border focus:border-yellow-600"
                         placeholder="Message"
                         rows={8}
+                        value={fd.message}
+                        onChange={(e) => setFd({ ...fd, message: e.target.value })}
+                        required
                     >
                     </textarea>
 
-                    <button className="focus:outline-none px-5 py-2 border border-black hover:bg-black hover:text-white duration-300 hover:shadow-lg w-fit">
+                    <button type="submit" className="focus:outline-none px-5 py-2 border border-black hover:bg-black hover:text-white duration-300 hover:shadow-lg w-fit">
                         Submit
                     </button>
                 </form>
             </div>
+            <Modal
+                open={modal}
+                onClose={() => setModal(false)}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
+            >
+                <Box className="absolute top-1/2 left-1/2 bg-white shadow-lg p-3 focus:outline-none -translate-x-1/2 -translate-y-1/2 w-[90%] md:w-[65%] lg:w-auto md:max-w-[80%]">
+                    {loading ?
+                        <div>
+                            <Loader />
+                        </div> :
+                        success ?
+                            <div className="text-green-500 text-xl font-semibold text-center">
+                                {success}
+                            </div> :
+                            error ?
+                                <div className="text-red-500 text-xl font-semibold text-center">
+                                    {error}
+                                </div> : ''}
+                </Box>
+            </Modal>
         </div>
     )
 }
