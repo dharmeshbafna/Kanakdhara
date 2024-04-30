@@ -444,7 +444,6 @@ export const Dashboard = () => {
 
             const decode = await jwt.decode(token);
 
-            console.log(decode);
             if (decode && decode.name) {
                 setName(decode.name);
                 setAdmin(decode.id);
@@ -456,10 +455,24 @@ export const Dashboard = () => {
     }, []);
 
     return (
-        <div className="min-h-[100vh] lg:px-16 lg:pt-32">
+        <div className="min-h-[100vh] px-5 lg:px-16 pt-16 md:pt-28 pb-16">
 
             {/* Header */}
-            <div className="flex items-center my-auto pt-8 w-full">
+            <div className="grid grid-cols-1 gap-5 md:flex items-center my-auto pt-8 w-full">
+                <div className="md:hidden flex justify-end items-center my-auto w-full relative">
+                    <button onClick={() => setProfilebox(!profilebox)} className="flex items-center my-auto w-fit">
+                        <FaRegUserCircle className="text-3xl mr-2" /> {name ? name : '-'}
+                    </button>
+                    {profilebox ?
+                        <div className="absolute bg-white right-0 top-8 p-3 shadow-lg">
+                            <button
+                                onClick={() => { localStorage.removeItem('Kanakdhara'); router.push('/admin/login') }}
+                                className="hover:text-[#71074F] duration-300 flex items-center my-auto">
+                                <IoMdExit className="mr-2" />
+                                Sign out
+                            </button>
+                        </div> : ''}
+                </div>
                 <div className="flex items-center my-auto border border-black px-4 py-2 focus:outline-none">
                     <IoIosSearch className="text-gray-600 mr-2" />
                     <input
@@ -473,17 +486,17 @@ export const Dashboard = () => {
                 <button onClick={() => {
                     setModal(true);
                     setType('create-category');
-                }} className="text-nowrap mx-3 px-4 py-2 border border-black hover:bg-black hover:text-white duration-300">
+                }} className="w-full md:w-fit text-nowrap md:mx-3 px-4 py-2 border border-black hover:bg-black hover:text-white duration-300">
                     + New Category
                 </button>
                 <button onClick={() => {
                     setModal(true);
                     setType('add-item');
-                }} className="text-nowrap px-4 py-2 border border-black hover:bg-black hover:text-white duration-300">
+                }} className="w-full md:w-fit text-nowrap px-4 py-2 border border-black hover:bg-black hover:text-white duration-300">
                     + Add Item
                 </button>
 
-                <div className="flex justify-end items-center my-auto w-full relative">
+                <div className="hidden md:flex justify-end items-center my-auto w-full relative">
                     <button onClick={() => setProfilebox(!profilebox)} className="flex items-center my-auto w-fit">
                         <FaRegUserCircle className="text-3xl mr-2" /> {name ? name : '-'}
                     </button>
@@ -503,86 +516,88 @@ export const Dashboard = () => {
 
                 // ========= Items List ============
                 <div className="mt-6">
-                    <div className="mb-5 grid grid-cols-2">
-                        <div className="font-semibold text-xl">
+                    <div className="mb-5 flex w-full md:grid grid-cols-2">
+                        <div className="font-semibold text-xl text-nowrap flex items-center my-auto">
                             Category: {activecat.name}
                         </div>
-                        <div className="flex justify-end">
+                        <div className="flex justify-end w-full">
                             <button onClick={() => setItems([])} className="flex items-center y-auto text-nowrap px-4 py-2 border border-black hover:bg-black hover:text-white duration-300">
                                 <IoArrowBackOutline className="mr-2" />
                                 Back
                             </button>
                         </div>
                     </div>
-                    <table className="w-full">
-                        <thead>
-                            <tr className="font-semibold text-lg text-gray-700">
-                                <th>No.</th>
-                                <th>Title</th>
-                                <th>Image</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {items
-                                .filter((i) => searchitem ? i.title.toLowerCase().includes(searchitem.toLowerCase()) : i)
-                                .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
-                                .map((i, index) => {
-                                    return (
-                                        <tr key={index} className="border-b border-gray-200">
-                                            <td className="w-1/4 text-center py-4 px-2">{index + 1}.</td>
-                                            <td className="w-1/4 text-center py-4 px-2">{i.title}</td>
-                                            <td className="w-1/4 text-center py-4 px-2">
-                                                <button
-                                                    onClick={() => {
-                                                        setImgpopup(i.imglink);
-                                                        setModal(true);
-                                                        setType('img-popup');
-                                                    }}>
-                                                    <Image
-                                                        src={i.imglink}
-                                                        width={50}
-                                                        height={50}
-                                                        priority={true}
-                                                        className="flex justify-center items-center m-auto"
-                                                    />
-                                                </button>
-                                            </td>
-                                            <td className="text-nowrap flex items-center m-auto justify-center py-4 px-2">
-                                                <button
-                                                    onClick={() => {
-                                                        setModal(true);
-                                                        setType('edit-item');
-                                                        setEditItem({ id: i._id, title: i.title, oldimg: i.imglink });
-                                                    }}
-                                                    className="mx-3 text-nowrap px-4 py-2 border border-black hover:bg-black hover:text-white duration-300">
-                                                    Edit
-                                                </button>
-                                                <button
-                                                    onClick={() => {
-                                                        setModal(true);
-                                                        setType('delete-item');
-                                                        setDeleteitem(i._id);
-                                                    }}
-                                                    className="text-nowrap px-4 py-2 border border-black hover:bg-black hover:text-white duration-300">
-                                                    Delete
-                                                </button>
-                                            </td>
-                                        </tr>
-                                    )
-                                })}
-                        </tbody>
-                    </table>
+                    <div className="overflow-x-auto w-full">
+                        <table className="w-full">
+                            <thead className="w-full">
+                                <tr className="w-full font-semibold text-lg text-gray-700">
+                                    <th>No.</th>
+                                    <th>Title</th>
+                                    <th>Image</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {items
+                                    .filter((i) => searchitem ? i.title.toLowerCase().includes(searchitem.toLowerCase()) : i)
+                                    .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+                                    .map((i, index) => {
+                                        return (
+                                            <tr key={index} className="border-b border-gray-200">
+                                                <td className="w-1/4 text-center py-4 px-2">{index + 1}.</td>
+                                                <td className="w-1/4 text-center py-4 px-2">{i.title}</td>
+                                                <td className="w-1/4 text-center py-4 px-2">
+                                                    <button
+                                                        onClick={() => {
+                                                            setImgpopup(i.imglink);
+                                                            setModal(true);
+                                                            setType('img-popup');
+                                                        }}>
+                                                        <Image
+                                                            src={i.imglink}
+                                                            width={50}
+                                                            height={50}
+                                                            priority={true}
+                                                            className="flex justify-center items-center m-auto"
+                                                        />
+                                                    </button>
+                                                </td>
+                                                <td className="text-nowrap flex items-center m-auto justify-center py-4 px-2">
+                                                    <button
+                                                        onClick={() => {
+                                                            setModal(true);
+                                                            setType('edit-item');
+                                                            setEditItem({ id: i._id, title: i.title, oldimg: i.imglink });
+                                                        }}
+                                                        className="mx-3 text-nowrap px-4 py-2 border border-black hover:bg-black hover:text-white duration-300">
+                                                        Edit
+                                                    </button>
+                                                    <button
+                                                        onClick={() => {
+                                                            setModal(true);
+                                                            setType('delete-item');
+                                                            setDeleteitem(i._id);
+                                                        }}
+                                                        className="text-nowrap px-4 py-2 border border-black hover:bg-black hover:text-white duration-300">
+                                                        Delete
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        )
+                                    })}
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
                 :
                 // ========== Categories List ============
-                <div className="mt-6">
+                <div className="mt-6 overflow-x-auto">
                     <table className="w-full">
                         <thead>
                             <tr className="font-semibold text-lg text-gray-700">
                                 <th>No.</th>
                                 <th>Category</th>
-                                <th>No. of Items</th>
+                                <th className="text-nowrap">No. of Items</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -701,7 +716,7 @@ export const Dashboard = () => {
                                                     setType('');
                                                     setModal(false);
                                                     return;
-                                                } else if (e.target.files[0].size <= 1048576){
+                                                } else if (e.target.files[0].size <= 1048576) {
                                                     setAdditem({ ...additem, img: e.target.files[0] });
                                                 }
                                             }}
