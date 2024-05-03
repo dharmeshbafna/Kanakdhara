@@ -5,7 +5,7 @@ import Image from "next/image";
 import { Simonetta } from "next/font/google"
 import { GetCategories } from "@/api/product";
 import { LoaderComp } from "./other";
-import { FaWhatsapp } from "react-icons/fa";
+import { FaSearchPlus, FaWhatsapp } from "react-icons/fa";
 
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
@@ -16,6 +16,7 @@ export const Main = ({ name }) => {
 
     const [data, setData] = useState([]);
     const [load, setLoad] = useState(true);
+    const [type, setType] = useState('');
     const [modal, setModal] = useState(false);
     const [imgpopup, setImgPopup] = useState('');
     const [fd, setFd] = useState({
@@ -87,12 +88,7 @@ export const Main = ({ name }) => {
                             .map((i) => {
                                 return (
                                     <div className="flex-col justify-center mx-auto w-full">
-                                        <button
-                                            onClick={() => {
-                                                setModal(true);
-                                                setImgPopup(i);
-                                            }}
-                                            className="shadow-lg relative w-full h-60 md:h-56 md:w-56 hover:scale-[110%] duration-300 hover:text-[#EFCF77] product-overlay text-transparent">
+                                        <button className="shadow-lg relative w-full h-60 md:h-56 md:w-56 duration-300 hover:text-[#EFCF77] product-overlay text-transparent flex justify-center mx-auto">
                                             <Image
                                                 src={i.imglink}
                                                 objectFit="cover"
@@ -100,10 +96,26 @@ export const Main = ({ name }) => {
                                                 objectPosition="center"
                                                 className="bg-white"
                                             />
-                                            <FaWhatsapp className="text-xl absolute top-1/2 left-1/2 z-30" />
-                                            <div className="absolute top-0 left-0 w-full h-full bg"></div>
+                                            <div className="absolute top-0 left-0 w-full h-full bg flex justify-center items-center m-auto">
+                                                <FaSearchPlus
+                                                    onClick={() => {
+                                                        setModal(true);
+                                                        setImgPopup(i);
+                                                        setType('image');
+                                                    }}
+                                                    className="hidden lg:block focus:outline-none text-2xl mr-5 hover:scale-[120%] duration-300"
+                                                />
+                                                <FaWhatsapp
+                                                    onClick={() => {
+                                                        setModal(true);
+                                                        setImgPopup(i);
+                                                        setType('form');
+                                                    }}
+                                                    className="focus:outline-none text-2xl z-30 hover:scale-[120%] duration-300"
+                                                />
+                                            </div>
                                         </button>
-                                        <div className="flex justify-center mx-auto text-center mt-3">{i.title}</div>
+                                        <div className="flex justify-center mx-auto text-center mt-3 font-semibold text-xl">{i.title}</div>
                                     </div>
                                 )
                             })}
@@ -116,57 +128,57 @@ export const Main = ({ name }) => {
                 aria-labelledby="modal-modal-title"
                 aria-describedby="modal-modal-description"
             >
-                <Box className="absolute top-1/2 left-1/2 bg-transparent shadow-lg focus:outline-none -translate-x-1/2 -translate-y-1/2 w-[90%] md:min-w-[65%] lg:w-auto md:max-w-[80%]">
-                    <div className="grid grid-cols-1 lg:flex">
+                <Box className="absolute top-1/2 left-1/2 bg-transparent shadow-lg focus:outline-none -translate-x-1/2 -translate-y-1/2 w-[80%] md:w-auto md:max-w-[80%]">
+
+                    {type == 'image' ?
                         <Image
                             src={imgpopup.imglink}
                             priority={true}
                             width={300}
                             height={300}
-                            className="flex justify-center items-center m-auto w-full h-auto max-h-[300px] md:max-h-[500px] md:min-w-[500px]"
-                        />
+                            className="flex justify-center items-center m-auto max-h-[500px] min-h-[400px] h-full w-auto"
+                        /> : type == 'form' ?
+                            <div className="p-5 bg-white">
+                                <div className="flex items-center my-auto h-full">
+                                    <div className="">
+                                        <div className={`${simonetta.className} text-2xl`}>
+                                            Get Info
+                                        </div>
+                                        <form onSubmit={handlemessage} className="w-full mt-3">
 
-                        <div className="p-3 bg-white">
-                            <div className="flex items-center my-auto h-full">
-                                <div className="">
-                                    <div className={`${simonetta.className} text-2xl`}>
-                                        Get Info
+                                            <input
+                                                className="w-full h-fit p-2 border border-black focus:outline-none focus:border focus:border-yellow-600"
+                                                placeholder="Full Name"
+                                                value={fd.name}
+                                                onChange={(e) => setFd({ ...fd, name: e.target.value })}
+                                                required
+                                            />
+
+                                            <input
+                                                className="mt-2 w-full h-fit p-2 border border-black focus:outline-none focus:border focus:border-yellow-600"
+                                                placeholder="Contact Number"
+                                                value={fd.contact}
+                                                onChange={(e) => setFd({ ...fd, contact: e.target.value })}
+                                                required
+                                            />
+
+                                            <textarea
+                                                className="mt-2 w-full h-fit p-2 border border-black focus:outline-none focus:border focus:border-yellow-600"
+                                                placeholder="Message"
+                                                value={fd.message}
+                                                onChange={(e) => setFd({ ...fd, message: e.target.value })}
+                                                rows={4}
+                                                required
+                                            >
+                                            </textarea>
+                                            <button type="submit" className="focus:outline-none px-5 py-2 border border-black hover:bg-black hover:text-white duration-300 hover:shadow-lg">
+                                                Send Message
+                                            </button>
+                                        </form>
                                     </div>
-                                    <form onSubmit={handlemessage} className="w-full mt-3">
-
-                                        <input
-                                            className="w-full h-fit p-2 border border-black focus:outline-none focus:border focus:border-yellow-600"
-                                            placeholder="Full Name"
-                                            value={fd.name}
-                                            onChange={(e) => setFd({ ...fd, name: e.target.value })}
-                                            required
-                                        />
-
-                                        <input
-                                            className="mt-2 w-full h-fit p-2 border border-black focus:outline-none focus:border focus:border-yellow-600"
-                                            placeholder="Contact Number"
-                                            value={fd.contact}
-                                            onChange={(e) => setFd({ ...fd, contact: e.target.value })}
-                                            required
-                                        />
-
-                                        <textarea
-                                            className="mt-2 w-full h-fit p-2 border border-black focus:outline-none focus:border focus:border-yellow-600"
-                                            placeholder="Message"
-                                            value={fd.message}
-                                            onChange={(e) => setFd({ ...fd, message: e.target.value })}
-                                            rows={4}
-                                            required
-                                        >
-                                        </textarea>
-                                        <button type="submit" className="focus:outline-none px-5 py-2 border border-black hover:bg-black hover:text-white duration-300 hover:shadow-lg">
-                                            Send Message
-                                        </button>
-                                    </form>
                                 </div>
                             </div>
-                        </div>
-                    </div>
+                            : ''}
                 </Box>
             </Modal>
         </div>

@@ -155,14 +155,14 @@ export const LoginComp = () => {
 
     return (
         <div className="min-h-[100vh] flex justify-center items-center m-auto w-full">
-            <div>
+            <div className="bg-[#71074F] py-5 px-8 shadow-lg text-white">
                 <div className="font-semibold text-center text-4xl">
                     Login
                 </div>
                 <form onSubmit={handleSubmit} className="mt-8 grid grid-cols-1 gap-3">
                     <input
                         type="email"
-                        className="px-3 py-2 border border-gray-500 focus:outline-none w-full focus:border focus:border-[#71074F]"
+                        className="text-black bg-white px-3 py-2 border border-gray-500 focus:outline-none w-full focus:border focus:border-[#71074F]"
                         placeholder="Email"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
@@ -171,14 +171,14 @@ export const LoginComp = () => {
 
                     <input
                         type="password"
-                        className="px-3 py-2 border border-gray-500 focus:outline-none w-full focus:border focus:border-[#71074F]"
+                        className="text-black bg-white px-3 py-2 border border-gray-500 focus:outline-none w-full focus:border focus:border-[#71074F]"
                         placeholder="Password"
                         value={pass}
                         onChange={(e) => setPass(e.target.value)}
                         required
                     />
 
-                    <button type="submit" className="flex justify-center items-center m-auto focus:outline-none px-5 py-2 border border-black hover:bg-black hover:text-white duration-300 hover:shadow-lg">
+                    <button type="submit" className="bg-[#EFCF77] text-black flex justify-center items-center m-auto focus:outline-none px-5 py-2 hover:bg-black hover:text-white duration-300 hover:shadow-lg">
                         <MdOutlineLock className="mr-2" />
                         Sign In
                     </button>
