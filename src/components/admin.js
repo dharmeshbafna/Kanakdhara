@@ -154,8 +154,8 @@ export const LoginComp = () => {
     }, []);
 
     return (
-        <div className="min-h-[100vh] flex justify-center items-center m-auto w-full">
-            <div className="bg-[#71074F] py-5 px-8 shadow-lg text-white">
+        <div className="min-h-[100vh] flex justify-center items-center m-auto w-full px-5 md:px-0">
+            <div className="bg-[#71074F] py-10 px-8 shadow-lg text-white w-full md:w-1/2 lg:w-[28%]">
                 <div className="font-semibold text-center text-4xl">
                     Login
                 </div>

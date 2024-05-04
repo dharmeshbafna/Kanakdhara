@@ -314,7 +314,7 @@ export const Products = () => {
                             height={300}
                             className="flex justify-center items-center m-auto max-h-[500px] min-h-[400px] h-full w-auto"
                         /> : type == 'form' ?
-                            <div className="p-5 bg-white">
+                            <div className="p-5 bg-white lg:w-[65%] flex justify-center mx-auto">
                                 <div className="flex items-center my-auto h-full">
                                     <div className="">
                                         <div className={`${simonetta.className} text-2xl`}>
