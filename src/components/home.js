@@ -15,9 +15,9 @@ import { FaSearchPlus, FaWhatsapp } from "react-icons/fa";
 
 import Slider1 from "../../public/slider1.jpeg";
 import Slider2 from "../../public/slider2.jpeg";
-import Belt from "../../public/belt.jpg"
+import Belt from "../../public/belt.JPG"
 import Bangles from "../../public/bangles.jpeg";
-import Earrings from "../../public/earrings.jpg";
+import Earrings from "../../public/earrings.JPG";
 import NameLogo from "../../public/namelogo.png";
 
 import { GetCategories } from "@/api/product";
