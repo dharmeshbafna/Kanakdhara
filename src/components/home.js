@@ -53,7 +53,7 @@ export const Banner = () => {
                     Kanakdhara Jewellers
                 </div>
                 <div className="text-white text-sm mt-5">
-                    Welcome to Kanakdhara Jewellers, where excellence and craftsmanship converge to offer a diverse array of exquisite plain gold casting jewelry, meticulously crafted in the heart of Ahmedabad, India.
+                    Welcome to Kanakdhara Jewellers, where excellence and craftsmanship converge to offer a diverse array of exquisite plain Gold Casting Jewellery & plain Rajkot Jewellery, meticulously crafted in the heart of Ahmedabad, India.
                 </div>
             </div>
 
