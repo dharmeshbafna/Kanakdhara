@@ -1,0 +1,36 @@
+{
+  "name": "frontend",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@emotion/react": "^11.11.4",
+    "@emotion/styled": "^11.11.5",
+    "@fingerprintjs/fingerprintjs": "^4.2.2",
+    "@fingerprintjs/fingerprintjs-pro-react": "^2.6.3",
+    "@mui/material": "^5.15.15",
+    "axios": "^1.6.8",
+    "fingerprintjs": "^0.5.3",
+    "fingerprintjs2": "^2.1.4",
+    "jsonwebtoken": "^9.0.2",
+    "next": "14.1.4",
+    "react": "^18",
+    "react-dom": "^18",
+    "react-icons": "^5.0.1",
+    "react-loader-spinner": "^6.1.6",
+    "react-native-fingerprint-scanner": "^6.0.0",
+    "react-slick": "^0.30.2",
+    "react-youtube": "^10.1.0",
+    "slick-carousel": "^1.8.1"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.0.1",
+    "postcss": "^8",
+    "tailwindcss": "^3.3.0"
+  }
+}
