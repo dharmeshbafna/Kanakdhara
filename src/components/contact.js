@@ -10,6 +10,8 @@ import { IoIosCall, IoIosMail, IoLogoWhatsapp } from "react-icons/io";
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import { Loader } from "./admin";
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 import { ContactForm } from "@/api/form";
 
@@ -73,21 +75,26 @@ export const ContactComp = () => {
         }
     }
 
+    useEffect(() => {
+        AOS.init({
+            once: true,
+        });
+    }, []);
     return (
         <div className="lg:px-16 pt-24 pb-10 px-5">
             <div className="my-10 flex justify-center mx-auto">
                 <div className="w-fit ">
-                    <div className={` ${simonetta.className} text-[3.25rem] text-center flex justify-center mx-auto`}>
+                    <div data-aos="fade-in" data-aos-duration="2000" className={` ${simonetta.className} text-[3.25rem] text-center flex justify-center mx-auto`}>
                         Contact Us
                     </div>
-                    <div className="flex justify-center mx-auto w-1/2 bg-black h-1 rounded-lg"></div>
+                    <div data-aos="fade-in" data-aos-duration="2000" className="flex justify-center mx-auto w-1/2 bg-black h-1 rounded-lg"></div>
                 </div>
             </div>
 
             {/* Main */}
             <div className="grid grid-cols-1 gap-3 lg:flex justify-center mx-auto">
 
-                <div className="bg-[#71074F] p-5 shadow-lg lg:max-w-[35%]">
+                <div data-aos="fade-right" data-aos-duration="2000" className="bg-[#71074F] p-5 shadow-lg lg:max-w-[35%]">
                     <div className="text-xl text-[#EFCF77] font-semibold">
                         Contact Details
                     </div>
@@ -128,7 +135,7 @@ export const ContactComp = () => {
                     </div>
                 </div>
 
-                <form onSubmit={handleSubmit} className="lg:px-3 lg:w-1/2 grid grid-cols-1 gap-3 h-fit">
+                <form data-aos="fade-left" data-aos-duration="2000" onSubmit={handleSubmit} className="lg:px-3 lg:w-1/2 grid grid-cols-1 gap-3 h-fit">
                     <input
                         className="h-fit p-2 border border-black w-full focus:outline-none focus:border focus:border-yellow-600"
                         placeholder="Full Name"

@@ -9,6 +9,8 @@ import { FaSearchPlus, FaWhatsapp } from "react-icons/fa";
 
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 const simonetta = Simonetta({ weight: '400', subsets: ["latin"] });
 
@@ -67,6 +69,11 @@ export const Main = ({ name }) => {
     };
 
 
+    useEffect(() => {
+        AOS.init({
+            once: true,
+        });
+    }, []);
     return (
         <div className={`lg:px-16 ${load ? '' : 'pt-24 pb-10'} px-5`}>
             {load ?
@@ -75,19 +82,20 @@ export const Main = ({ name }) => {
                 <div>
                     <div className="my-10 flex justify-center mx-auto">
                         <div className="w-fit ">
-                            <div className={` ${simonetta.className} text-[3.25rem] text-center flex justify-center mx-auto`}>
+                            <div data-aos="fade-in" data-aos-duration="2000" className={` ${simonetta.className} text-[3.25rem] text-center flex justify-center mx-auto`}>
                                 {data.category}
                             </div>
-                            <div className="flex justify-center mx-auto w-1/2 bg-black h-1 rounded-lg"></div>
+                            <div data-aos="fade-in" data-aos-duration="2000" className="flex justify-center mx-auto w-1/2 bg-black h-1 rounded-lg"></div>
                         </div>
                     </div>
                     {/* Items */}
                     <div className="grid gris-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-7">
                         {data.products && data.products
                             .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
-                            .map((i) => {
+                            .map((i, index) => {
                                 return (
-                                    <div className="flex-col justify-center mx-auto w-full">
+                                    <div data-aos="zoom-in" data-aos-duration="2000" data-aos-delay={index*100} 
+                                    className="flex-col justify-center mx-auto w-full">
                                         <button className="shadow-lg relative w-full h-60 md:h-56 md:w-56 duration-300 hover:text-[#EFCF77] product-overlay text-transparent flex justify-center mx-auto">
                                             <Image
                                                 src={i.imglink}
@@ -128,7 +136,7 @@ export const Main = ({ name }) => {
                 aria-labelledby="modal-modal-title"
                 aria-describedby="modal-modal-description"
             >
-                <Box className="absolute top-1/2 left-1/2 bg-transparent shadow-lg focus:outline-none -translate-x-1/2 -translate-y-1/2 w-[80%] md:w-auto md:max-w-[80%]">
+                <Box className="absolute top-1/2 left-1/2 bg-white shadow-lg focus:outline-none -translate-x-1/2 -translate-y-1/2 w-[80%] md:w-auto md:max-w-[80%]">
 
                     {type == 'image' ?
                         <Image

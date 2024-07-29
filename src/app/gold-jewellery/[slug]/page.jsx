@@ -21,7 +21,7 @@ export async function generateMetadata({ params }) {
 
 export default function Gold({ params }) {
     return (
-        <div>
+        <div className="overflow-x-hidden">
             <Main name={params.slug} />
         </div>
     )

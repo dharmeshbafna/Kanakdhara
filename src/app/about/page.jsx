@@ -10,7 +10,7 @@ export const metadata = {
 
 export default function CONTACT() {
     return (
-        <div className="">
+        <div className="overflow-x-hidden">
             <AboutComp />
             <Manufacturing />
             <CTA />
