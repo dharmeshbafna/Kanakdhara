@@ -9,6 +9,8 @@ import Image from "next/image"
 import Icon from "../../public/icon.png"
 import FooterLogo from "../../public/footer_logo.png";
 import NameLogo from "../../public/kd_mobile_logo.png"
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 import { FaInstagram, FaFacebookF, FaCaretDown, FaYoutube } from "react-icons/fa";
 import { FaXTwitter, FaLocationDot, FaBars } from "react-icons/fa6";
@@ -165,6 +167,12 @@ export const Navbar = () => {
             window.removeEventListener('scroll', handlescroll);
         }
     }, []);
+    
+    useEffect(() => {
+        AOS.init({
+            once: true,
+        });
+    }, []);
 
     return (
         <div className="z-50 absolute top-0 left-0 w-full p-5 lg:px-16 lg:py-5">
@@ -179,7 +187,7 @@ export const Navbar = () => {
                         <div className="flex items-center lg:w-[65%]">
 
                             {/* Logo */}
-                            <a href="/">
+                            <a href="/" data-aos="fade-in" data-aos-duration="2000" >
                                 <Image
                                     src={Icon}
                                     className="h-20 w-auto drop-shadow-md rotate-360 duration-300 hover:drop-shadow-none"
@@ -187,7 +195,7 @@ export const Navbar = () => {
                             </a>
 
                             {/* Desktop Items */}
-                            <div className="flex items-center justify-center mx-auto">
+                            <div className="flex items-center justify-center mx-auto" data-aos="fade-in" data-aos-duration="2000" >
 
                                 <a href="/" className={`mx-4 w-fit ${isActive('/') ? 'text-[#71074F] font-semibold' : ''} hover:text-[#71074F] hover:scale-[110%] duration-300`}>
                                     Home
@@ -234,7 +242,7 @@ export const Navbar = () => {
                         </div>
 
                         {/* Desktop Social Icons */}
-                        <div className="lg:w-[35%] flex justify-end items-center m-auto">
+                        <div data-aos="fade-in" data-aos-duration="2000" className="lg:w-[35%] flex justify-end items-center m-auto">
                             <a href="https://www.facebook.com/kanakdharajewellers?mibextid=LQQJ4d" target="_blank" className="mx-3 w-fit text-white hover:scale-[120%] duration-300">
                                 <FaFacebookF className="" />
                             </a>
@@ -320,7 +328,7 @@ export const Navbar = () => {
 
             <div className={`${stickynav ? 'fixed top-0 z-50 shadow-lg bg-white left-0 p-5' : ''} grid grid-cols-2 w-full lg:hidden`}>
 
-                <div>
+                <div data-aos="fade-in" data-aos-duration="2000"> 
                     <a href="/">
                         <Image
                             src={stickynav ? NameLogo : Icon}

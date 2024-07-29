@@ -9,6 +9,8 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 import { IoIosSearch } from "react-icons/io";
 import { FaSearchPlus, FaWhatsapp } from "react-icons/fa";
@@ -40,25 +42,31 @@ export const Banner = () => {
         autoplaySpeed: 2300,
         pauseOnHover: false,
     };
+
+    useEffect(() => {
+        AOS.init({
+            once: true,
+        });
+    }, []);
     return (
         <div className="h-[70vh] md:h-[60vh] lg:h-[100vh] w-full relative flex justify-center items-end lg:px-16">
 
             {/* Pink Shade bg */}
-            <div className="absolute w-1/2 lg:w-[40%] top-0 right-0 h-1/2 md:h-[75%] lg:h-[85%] bg-[#71074F] shadow-lg">
+            <div data-aos="fade-in" data-aos-duration="2000" className="absolute w-1/2 lg:w-[40%] top-0 right-0 h-1/2 md:h-[75%] lg:h-[85%] bg-[#71074F] shadow-lg">
             </div>
 
             {/* Text between slider & bg */}
             <div className="hidden md:block absolute top-[20%] md:top-[40%] right-0 md:right-5 lg:right-20 z-30 w-1/2 md:w-[35%]">
-                <div className={`${simonetta.className} text-white text-3xl lg:text-[40px]`}>
+                <div data-aos="fade-up" data-aos-duration="2000" data-aos-delay="1000" className={`${simonetta.className} text-white text-3xl lg:text-[40px]`}>
                     Kanakdhara Jewellers
                 </div>
-                <div className="text-white text-sm mt-5">
+                <div data-aos="fade-up" data-aos-duration="2000" data-aos-delay="1500" className="text-white text-sm mt-5">
                     Welcome to Kanakdhara Jewellers, where excellence and craftsmanship converge to offer a diverse array of exquisite plain Gold Casting Jewellery & plain Rajkot Jewellery, meticulously crafted in the heart of Ahmedabad, India.
                 </div>
             </div>
 
             {/* Line below logo */}
-            <div className="block absolute left-2 lg:left-20 bottom-12 md:bottom-0 lg:bottom-auto lg:top-[22%]">
+            <div data-aos="fade-in" data-aos-duration="2000" className="block absolute left-2 lg:left-20 bottom-12 md:bottom-0 lg:bottom-auto lg:top-[22%]">
                 <div className="h-8 md:h-12 border-l border-yellow-400 ml-3 md:ml-4"></div>
                 <Image
                     src={NameLogo}
@@ -94,12 +102,12 @@ export const Banner = () => {
                 <div className="relative w-full h-[70vh] focus:outline-none">
 
 
-                    <video width="100%" height="100%" loop autoPlay muted className="hidden lg:block shadow-lg">
+                    <video data-aos="zoom-in" data-aos-duration="2000" width="100%" height="100%" loop autoPlay muted className="hidden lg:block shadow-lg">
                         <source src="/intro.mp4" type="video/mp4" />
                         Your browser does not support the video tag.
                     </video>
 
-                    <video loop autoPlay muted className="w-[93%] md:w-[80%] h-[100%] absolute left-4 bottom-10 md:left-8 md:-bottom-20 lg:hidden">
+                    <video data-aos="zoom-in" data-aos-duration="2000" loop autoPlay muted className="w-[93%] md:w-[80%] h-[100%] absolute left-4 bottom-10 md:left-8 md:-bottom-20 lg:hidden">
                         <source src="/intro.mp4" type="video/mp4" />
                         Your browser does not support the video tag.
                     </video>
@@ -107,10 +115,10 @@ export const Banner = () => {
             </div>
 
             <div className="md:hidden absolute bottom-4 left-4 px-5">
-                <div className={`${simonetta.className} text-black text-4xl`}>
+                <div data-aos="fade-up" data-aos-duration="2000" data-aos-delay="500" className={`${simonetta.className} text-black text-4xl`}>
                     Kanakdhara Jewellers
                 </div>
-                <div className="text-black text-sm mt-5">
+                <div data-aos="fade-up" data-aos-duration="2000" data-aos-delay="1000" className="text-black text-sm mt-5">
                     Welcome to Kanakdhara Jewellers, where excellence and craftsmanship converge to offer a diverse array of exquisite plain gold casting jewelry, meticulously crafted in the heart of Ahmedabad, India.
                 </div>
             </div>
@@ -189,32 +197,17 @@ export const Products = () => {
     return (
         <div className="px-5 py-16 lg:py-14 lg:px-16 lg:min-h-[100vh] flex items-center my-auto">
             <div className="w-full">
-                <div className="text-base flex justify-center mx-auto text-center">
+                <div data-aos="fade-up" data-aos-duration="1000" className="text-base flex justify-center mx-auto text-center">
                     Basic and Exquisite
                 </div>
-                <div className={`flex justify-center mx-auto text-[3.25rem] ${simonetta.className}`}>
+                <div data-aos="fade-up" data-aos-duration="1000" className={`flex justify-center mx-auto text-[3.25rem] ${simonetta.className}`}>
                     Our Products
                 </div>
 
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-2 lg:flex items-center justify-center m-auto py-4 w-full">
-                    {/* {data && data.map((i) => {
+                    {data && data.map((i, index) => {
                         return (
-                            <div>
-                                <div onClick={() => setActiveCat(i)} className="mx-2 w-fit hover:scale-[110%] duration-300 focus:outline-none">
-                                    <button className={`${i._id == activeCat._id ? 'font-semibold' : ''}`}>
-                                        {i.category}
-                                    </button>
-                                    {activeCat._id == i._id ?
-                                        <div className="h-1 w-1/2 bg-black flex justify-center mx-auto rounded-lg">
-                                        </div>
-                                        : ''}
-                                </div>
-                            </div>
-                        )
-                    })} */}
-                    {data && data.map((i) => {
-                        return (
-                            <button onClick={() => setActiveCat(i)} className={`${i._id == activeCat._id ? 'bg-[#71074F] text-[#EFCF77]' : ''} lg:w-fit w-full px-2 py-1 lg:px-5 border border-[#71074F] hover:bg-[#71074F] hover:text-[#EFCF77] duration-300`}>
+                            <button key={index} data-aos="zoom-in" data-aos-duration="2000" data-aos-delay={index * 200} onClick={() => setActiveCat(i)} className={`${i._id == activeCat._id ? 'bg-[#71074F] text-[#EFCF77]' : ''} lg:w-fit w-full px-2 py-1 lg:px-5 border border-[#71074F] hover:bg-[#71074F] hover:text-[#EFCF77] duration-300`}>
                                 {i.category}
                             </button>
                         )
@@ -227,9 +220,10 @@ export const Products = () => {
                         {activeCat.products && activeCat.products
                             .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
                             .slice(0, 4)
-                            .map((i) => {
+                            .map((i, index) => {
                                 return (
-                                    <button
+                                    <button key={index}
+                                        data-aos="zoom-in" data-aos-duration="2000" data-aos-delay={index * 200}
                                         className="shadow-lg relative h-56 w-56 duration-300 hover:text-[#EFCF77] product-overlay text-transparent">
                                         <Image
                                             src={i.imglink}
@@ -264,7 +258,7 @@ export const Products = () => {
                 </div>
 
                 {/* Items Responsive*/}
-                <div className="lg:hidden pt-3 pb-5">
+                <div data-aos="zoom-in" data-aos-duration="2000" className="lg:hidden pt-3 pb-5">
                     <Slider ref={sliderRef} {...settings} className="">
                         {activeCat.products && activeCat.products
                             .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
@@ -293,7 +287,7 @@ export const Products = () => {
                     </Slider>
                 </div>
 
-                <div className="flex justify-center mt-5">
+                <div data-aos="zoom-in" data-aos-duration="2000" className="flex justify-center mt-5">
                     <a href={`/gold-jewellery/${activeCat ? activeCat.category.toLowerCase().replace(/ /g, '-') : ''}`} className="focus:outline-none px-5 py-2 border border-black hover:bg-black hover:text-white duration-300 hover:shadow-lg">
                         View All
                     </a>
@@ -367,7 +361,7 @@ export const About = () => {
         <div className="px-5 py-16 lg:py-14 lg:px-16 bg-gray-100 lg:min-h-[100vh] items-center my-auto flex">
             <div className="grid md:grid-cols-2 gap-8 md:gap-2">
 
-                <div className="relative hidden md:flex justify-center items-center m-auto w-full">
+                <div data-aos="fade-right" data-aos-duration="2000" className="relative hidden md:flex justify-center items-center m-auto w-full">
                     <Image
                         src={Belt}
                         className="h-96 w-auto rounded-t-full shadow-lg"
@@ -384,7 +378,7 @@ export const About = () => {
                     </div>
                 </div>
 
-                <div className="flex items-center my-auto p-3">
+                <div  data-aos="fade-left" data-aos-duration="2000"   className="flex items-center my-auto p-3">
                     <div>
                         <div className={`${simonetta.className} text-[50px]`}>
                             About Us
@@ -402,7 +396,7 @@ export const About = () => {
                     </div>
                 </div>
 
-                <div className="relative md:hidden flex justify-center items-center m-auto w-full">
+                <div  data-aos="fade-in" data-aos-duration="2000" className="relative md:hidden flex justify-center items-center m-auto w-full">
                     <Image
                         src={Belt}
                         className="h-96 w-auto rounded-t-full shadow-lg"
@@ -428,7 +422,7 @@ export const Desc = () => {
         <div className="px-5 py-16 lg:py-0 lg:px-16 bg-[#71074F] lg:min-h-[100vh] items-center my-auto flex text-white">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-2">
 
-                <div className="flex items-center my-auto">
+                <div data-aos="fade-right" data-aos-duration="2000" className="flex items-center my-auto">
                     <div>
                         <div className={`${simonetta.className} text-[50px] text-[#EFCF77]`}>
                             Fine Jewellery
@@ -446,7 +440,7 @@ export const Desc = () => {
                     </div>
                 </div>
 
-                <div className="relative flex justify-center items-center m-auto w-full">
+                <div data-aos="fade-left" data-aos-duration="2000" className="relative flex justify-center items-center m-auto w-full">
                     <Image
                         src={Belt}
                         className="h-96 w-auto rounded-t-full shadow-lg"
@@ -474,13 +468,13 @@ export const CTA = () => {
     return (
         <div className={`p-5 py-16 lg:py-0 lg:min-h-[70vh] flex items-center justify-center m-auto ${path == '/contact' ? 'hidden' : ''}`}>
             <div>
-                <div className={`${simonetta.className} flex justify-center mx-auto text-[3.25rem]`}>
+                <div data-aos="fade-in" data-aos-duration="2000" className={`${simonetta.className} flex justify-center mx-auto text-[3.25rem]`}>
                     Contact Us
                 </div>
-                <div className="mt-4 mb-6 lg:w-[80%] text-center flex justify-center mx-auto">
+                <div data-aos="fade-in" data-aos-duration="2000" className="mt-4 mb-6 lg:w-[80%] text-center flex justify-center mx-auto">
                     If you have any queries or need any help, feel free to contact us.
                 </div>
-                <a href="/contact" className="focus:outline-none px-5 py-2 border border-black hover:bg-black hover:text-white duration-300 hover:shadow-lg flex justify-center mx-auto w-fit">
+                <a data-aos="fade-in" data-aos-duration="2000" href="/contact" className="focus:outline-none px-5 py-2 border border-black hover:bg-black hover:text-white duration-300 hover:shadow-lg flex justify-center mx-auto w-fit">
                     Contact Us
                 </a>
             </div>
