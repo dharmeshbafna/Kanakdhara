@@ -405,16 +405,13 @@ export const Footer = () => {
                                 Useful Links
                             </div>
                             <div className="mt-5 grid grid-cols-1 gap-2 pl-1 text-white">
-                                <a href="#" className="w-fit hover:text-[#EFCF77] hover:scale-[105%] duration-300">
-                                    Privacy Policy
+                                <a href="/" className="w-fit hover:text-[#EFCF77] hover:scale-[105%] duration-300">
+                                    Home
                                 </a>
-                                <a href="#" className="w-fit hover:text-[#EFCF77] hover:scale-[105%] duration-300">
-                                    Terms & Conditions
+                                <a href="/about" className="w-fit hover:text-[#EFCF77] hover:scale-[105%] duration-300">
+                                    About Us
                                 </a>
-                                <a href="#" className="w-fit hover:text-[#EFCF77] hover:scale-[105%] duration-300">
-                                    Refund Policy
-                                </a>
-                                <a href="#" className="w-fit hover:text-[#EFCF77] hover:scale-[105%] duration-300">
+                                <a href="/contact" className="w-fit hover:text-[#EFCF77] hover:scale-[105%] duration-300">
                                     Contact Us
                                 </a>
                             </div>
@@ -444,7 +441,7 @@ export const Footer = () => {
                                 Contact Us
                             </div>
                             <div className="mt-5 grid grid-cols-1 gap-2 pl-1 text-white">
-                                <a href="+919510902129" className="w-fit hover:text-[#EFCF77] hover:scale-[105%] duration-300 flex items-center my-auto">
+                                <a href="tel:+919510902129" className="w-fit hover:text-[#EFCF77] hover:scale-[105%] duration-300 flex items-center my-auto">
                                     <IoIosCall className="mr-2" />
                                     <span>+91 9510902129</span>
                                 </a>
