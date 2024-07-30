@@ -13,7 +13,7 @@ import Modal from '@mui/material/Modal';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 
-import AboutImg from "../../public/kanakdhara.jpg";
+import AboutImg from "../../public/kanakdhara2.jpg";
 import Necklace from "../../public/necklace.jpeg";
 import Bangles from "../../public/bangles.jpeg";
 import NameLogo from "../../public/namelogo.png";
@@ -45,7 +45,7 @@ export const AboutComp = () => {
                 <div data-aos="fade-in" data-aos-duration="2000" className="lg:hidden">
                     <Image
                         src={AboutImg}
-                        className="w-full h-auto flex justify-center items-center m-auto shadow-lg"
+                        className="w-full h-auto flex justify-center items-center m-auto drop-shadow-lg"
                         priority={true}
                     />
                 </div>
@@ -66,7 +66,7 @@ export const AboutComp = () => {
                 <div data-aos="fade-left" data-aos-duration="2000" className="hidden lg:block lg:w-[40%] lg:p-3 ">
                     <Image
                         src={AboutImg}
-                        className="w-full h-auto flex justify-center items-center m-auto shadow-lg"
+                        className="w-full h-auto flex justify-center items-center m-auto drop-shadow-lg"
                         priority={true}
                     />
                 </div>
