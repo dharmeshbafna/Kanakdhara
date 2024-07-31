@@ -61,7 +61,7 @@ export const Banner = () => {
                     Kanakdhara Jewellers
                 </div>
                 <div data-aos="fade-up" data-aos-duration="2000" data-aos-delay="1500" className="text-white text-sm mt-5">
-                    Welcome to Kanakdhara Jewellers, where excellence and craftsmanship converge to offer a diverse array of exquisite plain Gold Casting Jewellery & plain Rajkot Jewellery, meticulously crafted in the heart of Ahmedabad, India.
+                    Welcome to Kanakdhara Jewellers, where excellence and craftsmanship converge to offer a diverse array of exquisite Plain Gold Casting Jewellery & Plain Rajkot Jewellery, meticulously crafted in the heart of Ahmedabad, India.
                 </div>
             </div>
 
@@ -386,7 +386,7 @@ export const About = () => {
                         <div className="mt-3">
                             We stand as a premier Plain Gold Casting & Plain Rajkot Jewellery Manufacturers.
                             <br /><br />
-                            Our dedication to perfection is evident in every piece we create, meticulously crafting a diverse array of exquisite 18k and 22k hallmarked plain gold casting rings, bracelets, pendants, and earrings.
+                            22KT Hallmarked Jewellery
                         </div>
                         <div className="w-fit mt-7">
                             <a href="/about" className="focus:outline-none px-5 py-2 border border-black hover:bg-black hover:text-white duration-300 hover:shadow-lg">
