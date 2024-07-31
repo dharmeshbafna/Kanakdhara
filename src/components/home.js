@@ -21,6 +21,7 @@ import Belt from "../../public/belt.JPG"
 import Bangles from "../../public/bangles.jpeg";
 import Earrings from "../../public/earrings.JPG";
 import Earrings2 from "../../public/earrings2.JPG";
+import Ring from "../../public/3.jpg";
 import NameLogo from "../../public/namelogo.png";
 
 import { GetCategories } from "@/api/product";
@@ -443,7 +444,7 @@ export const Desc = () => {
 
                 <div data-aos="fade-left" data-aos-duration="2000" className="relative flex justify-center items-center m-auto w-full">
                     <Image
-                        src={Belt}
+                        src={Ring}
                         className="h-96 w-auto rounded-t-full shadow-lg"
                     />
                     <div className="absolute -bottom-3 -right-5 md:-right-4 lg:right-20">
