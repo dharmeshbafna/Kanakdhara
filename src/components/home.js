@@ -20,6 +20,7 @@ import Slider2 from "../../public/slider2.jpeg";
 import Belt from "../../public/belt.JPG"
 import Bangles from "../../public/bangles.jpeg";
 import Earrings from "../../public/earrings.JPG";
+import Earrings2 from "../../public/earrings2.JPG";
 import NameLogo from "../../public/namelogo.png";
 
 import { GetCategories } from "@/api/product";
@@ -448,7 +449,7 @@ export const Desc = () => {
                     <div className="absolute -bottom-3 -right-5 md:-right-4 lg:right-20">
                         <div className="relative h-48 w-48 rounded-full overflow-hidden shadow-lg">
                             <Image
-                                src={Earrings}
+                                src={Earrings2}
                                 objectFit="cover"
                                 layout="fill"
                                 className=""
