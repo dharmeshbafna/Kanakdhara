@@ -561,7 +561,7 @@ export const Footer = () => {
 
             {/* Copyright */}
             <div className="mt-4 lg:mt-0 pt-8 border-t border-gray-400 text-gray-300 text-center flex justify-center mx-auto">
-                © Copyright 2022. All Rights Reserved by Kanakdhara Jewellers.
+                © Copyright 2024 Kanakdhara Jewellers. Developed by&nbsp;<a href="https://anriyo.com" target="_blank" className="font-semibold hover:text-[#EFCF77] hover:scale-[105%] duration-300 ">Anriyo</a>.
             </div>
         </div>
     )
