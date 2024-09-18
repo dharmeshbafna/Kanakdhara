@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect } from "react";
+import { useSearchParams } from "next/navigation";
 import Image from "next/image";
 import { Simonetta } from "next/font/google"
 import { GetCategories } from "@/api/product";
@@ -94,8 +95,8 @@ export const Main = ({ name }) => {
                             .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
                             .map((i, index) => {
                                 return (
-                                    <div data-aos="zoom-in" data-aos-duration="2000" data-aos-delay={index*100} 
-                                    className="flex-col justify-center mx-auto w-full">
+                                    <div data-aos="zoom-in" data-aos-duration="2000" data-aos-delay={index * 100}
+                                        className="flex-col justify-center mx-auto w-full">
                                         <button className="shadow-lg relative w-full h-60 md:h-56 md:w-56 duration-300 hover:text-[#EFCF77] product-overlay text-transparent flex justify-center mx-auto">
                                             <Image
                                                 src={i.imglink}
