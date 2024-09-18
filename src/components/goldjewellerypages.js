@@ -17,6 +17,7 @@ const simonetta = Simonetta({ weight: '400', subsets: ["latin"] });
 
 export const Main = ({ name }) => {
 
+    const search = useSearchParams();
     const [data, setData] = useState([]);
     const [load, setLoad] = useState(true);
     const [type, setType] = useState('');
@@ -75,6 +76,25 @@ export const Main = ({ name }) => {
             once: true,
         });
     }, []);
+
+    useEffect(() => {
+
+        const id = search.get('id');
+        const handlePopupItem = async (id) => {
+
+            const itm = await data.products.find((i) => i._id == id);
+            setImgPopup(itm);
+            setType('image');
+            setModal(true);
+        };
+
+
+        if (id && data.products) {
+            handlePopupItem(id);
+        }
+
+    }, [data.products]);
+
     return (
         <div className={`lg:px-16 ${load ? '' : 'pt-24 pb-10'} px-5`}>
             {load ?
