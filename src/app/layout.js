@@ -6,12 +6,12 @@ import { CTA } from "@/components/home";
 
 const inter = Inter({ subsets: ["latin"] });
 
-export const metadata = {
-  title: "Kandhara Jewellers",
-  icons: {
-    icon: '/icon.png'
-  }
-};
+// export const metadata = {
+//   title: "Kandhara Jewellers",
+//   icons: {
+//     icon: '/icon.png'
+//   }
+// };
 
 export default function RootLayout({ children }) {
   return (
