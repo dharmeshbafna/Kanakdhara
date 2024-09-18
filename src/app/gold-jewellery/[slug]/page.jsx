@@ -17,7 +17,7 @@ export async function generateMetadata({ params, searchParams }) {
     return {
         title: getitem.title ? `${getitem.title} | ${cat.category}` : `${cat.category} - KanakDhara Jewelers`,
         icons: {
-            icon: getitem.imglink ? getitem.imglink : '/icon.png'
+            icon: getitem.imglink 
         },
     };
 }
