@@ -15,9 +15,9 @@ export async function generateMetadata({ params, searchParams }) {
     const getitem = cat.products.find((i) => i._id == id);
 
     return {
-        title: getitem.title ? `${getitem.title} | ${cat.category}` : `${cat.category} - KanakDhara Jewelers`,
+        title: getitem ? `${getitem.title} | ${cat.category}` : `${cat.category} - KanakDhara Jewelers`,
         icons: {
-            icon: getitem.imglink 
+            icon: getitem ? getitem.imglink : '/icon.png'
         },
     };
 }
